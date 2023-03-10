@@ -158,6 +158,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'price'=>'Gía tiền',
+        'qty'=>'Số lượng',
+    ],
 
 ];

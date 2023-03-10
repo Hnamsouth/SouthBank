@@ -41,4 +41,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function Admin(){
+        return $this->hasOne(Admin::class);
+    }
+    public function isAdmin(){
+        $admin = $this->Admin;
+        if($admin && $admin->role == Admin::ADMIN){
+            return true;
+        }
+        return false;
+    }
+    public function isAdministrator(){
+        $admin = $this->Admin;
+
+        if($admin && in_array($admin->role,Admin::ADMINISTRATOR)){
+            return true;
+        }
+        return false;
+    }
+
 }

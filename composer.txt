@@ -1,0 +1,57 @@
+
+CREATE project:
+    cmd- composer create-project laravel/laravel example-app
+START project :
+    cmd- php artisan serve
+CREATE Controller:  /app/Http/Controller
+    cmd- php artisan make:controller DemoController
+CREATE Middleware: /app/Http/Middleware
+    --all middlewares created will need to be defined in Kernel to use it
+    cmd- php artisan make:middleware CheckPermission
+CREATE Model: Used to interact and generate fake data into the database /app/Models
+    cmd- php artisan make:model Category
+CREATE Factory: Used to set data for each column in the table  /database/factories
+    cmd- php artisan make:factory CategoryFactory
+Seeding Data fake:
+    --execute run() function from /database/seeders/DatabaseSeeder
+    --use model to generate fake data, please note that fake data needs to be configured in the factory before generation.
+    cmd-  php artisan db:seed
+MIGRATION:Migrations allow you to modify your database schema in a structured and organized way, and Laravel's migration system helps you manage these changes easily
+    CREATE migration:
+        cmd-  php artisan make:migration create_table_catefories --create=categories
+    run migration file:
+        cmd-  php artisan migrate
+    rollback step:
+        cmd- php artisan migrate:rollback  previous step
+        cmd- php artisan migrate:rollback --step=2
+    refresh all migrations: Recreate all table
+        cmd- php artisan migrate:refresh
+        cmd- php artisan migrate:refresh --seed . To recreate all tables and seeding data in database seeder /database/DatabaseSeeder
+
+
+set database in .env file
+
+SETUP tailwind
+
+// up date migration  :
+    cmd- php artisan make:migration update_table_order --table=orders
+    // if this table had model
+
+//            DB::connection()->  connect to other database
+
+https://tailwindcss.com/docs/guides/laravel#vite
+
+// muốn tạo helper phải khai báo thêm thuộc tính 'files'  trong composer.josn
+
+"autoload": {
+        "files": [
+            "app/Helpers/helper.php"
+        ]
+    },
+
+
+
+
+
+
+
