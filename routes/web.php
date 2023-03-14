@@ -47,7 +47,7 @@ Route::get('/send-SMS',[SendSMS::class,'SendMess']);
 Route::get('logout/{id}',function ($id){
     $id==1?Auth::guard('admin')->logout():Auth::logout();
     return redirect()->route('home');
-});
+})->name('user-logout');
 //Route::get('/user-register', function () {
 //   return view('user.register');
 //});

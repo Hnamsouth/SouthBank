@@ -85,7 +85,7 @@
                     <button type="button" class="btn-close m-0 ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ">
-                    @include('user.login')
+{{--                    @include('user.login')--}}
                 </div>
             </div>
         </div>

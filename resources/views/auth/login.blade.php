@@ -94,7 +94,7 @@
             <form class="p-4 p-md-5 rounded-3" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="floatingInput" placeholder="name@example.com" style="">
+                    <input type="email" name="email" class="form-control  @error('email') is-invalid @enderror" value="{{ old('email') }}" id="floatingInput" placeholder="name@example.com" style="">
                     <label for="floatingInput">Email address</label>
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -103,7 +103,7 @@
                     @enderror
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control form-control-navbar @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control form-control-navbar @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password" required>
                     <label for="floatingPassword">Password</label>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -113,7 +113,7 @@
                 </div>
                 <div class="checkbox mb-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} required>
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} >
 
                         <label class="form-check-label" for="remember">
                             {{ __('Remember Me') }}
