@@ -14,10 +14,10 @@ class AccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('account_number')->unique();
             $table->unsignedDecimal('balance',16,4);
-            $table->date('open_date');
-            $table->tinyInteger('status');
+            $table->boolean('status');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('account_type');
             $table->foreign('user_id')->references('id')->on('users');

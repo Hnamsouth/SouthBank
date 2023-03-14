@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SendSMS;
 use App\Models\User;
+use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -21,37 +22,33 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 Route::get('/', function () {
-//    $qr = QrCode::generate('Hello, world!');
-    $token = bcrypt('hello, world!'); // generate a unique token
-    $qr =QrCode::size(250)->generate($token); // generate QR code with the token
-
-    return view('user.home',compact('qr'));
 //    return view('admin.layout');
+    return view('user.home');
 })->name('home');
 
-//Route::get('/user-register', function () {
-//   return view('user.register');
-//});
+
 Route::view('/home-admin', 'admin.Home');
+Route::view('/layout', 'admin.layout');
 
 
-Route::middleware(['auth'])->prefix('/user')->group(function (){
-
-    Route::get('profile', function () { return 'user';}) ->name('user.profile');
-    Route::get('checkout', function () {});
+Route::middleware(['auth:web'])->prefix('/user')->group(function (){
+    Route::get('profile', function () { return view('user_p.layout');}) ->name('user.profile');
+    Route::get('checkout', function () { return "check out";});
     Route::get('transaction', function () {});
-    Route::get('payment', function () {});
     Route::get('payment', function () {});
 
 });
-//Auth::routes();
-
-Route::get('/send-SMS',[SendSMS::class,'SendMess']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+
+//  test
+Route::get('/send-SMS',[SendSMS::class,'SendMess']);
 
 Route::get('logout/{id}',function ($id){
     $id==1?Auth::guard('admin')->logout():Auth::logout();
     return redirect()->route('home');
 });
+//Route::get('/user-register', function () {
+//   return view('user.register');
+//});
+

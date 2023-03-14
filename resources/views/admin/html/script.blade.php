@@ -4,8 +4,8 @@
 <!-- Bootstrap tether Core JavaScript -->
 <script src="../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <!-- apps -->
-<script src="../../dist/js/app.min.js"></script>
 <script src="../../dist/js/app.init.mini-sidebar.js"></script>
+<script src="../../dist/js/app.min.js"></script>
 <script src="../../dist/js/app-style-switcher.js"></script>
 <!-- slimscrollbar scrollbar JavaScript -->
 <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>

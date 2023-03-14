@@ -668,13 +668,7 @@
 
 @endsection
 
-@section('after-js')
-    <!--This page JavaScript -->
-    <script src="../../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <!-- Chart JS -->
-    <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
 
-@endsection
 
 @section("main-content")
 
@@ -714,6 +708,9 @@
                 </div>
             </div>
         </div>
+{{--        pusher test --}}
+        <button id="pusher" class="btn btn-primary">Pusher</button>
+
     </div>
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
@@ -1483,5 +1480,30 @@
     <!-- End footer -->
     <!-- ============================================================== -->
 @endsection
+@section('after-js')
+    <!--This page JavaScript -->
+    <script src="../../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <!-- Chart JS -->
+    <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+
+    <script>
+        $('#pusher').click(()=>{
+            $.ajax({
+                type:'post',
+                url:'/template/pusher',
+                data:{
+                    '_token':'{{ csrf_token() }}',
+                    data:{
+                        'name':'helloasdfas',
+                    }
+                },
+                success: function(response){
+                    console.log(response);
+                }
+            })
+        });
+    </script>
+@endsection
+
 
 

@@ -14,16 +14,15 @@ class CardsTable extends Migration
     public function up()
     {
         Schema::create('cards', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('card_number')->unique();
             $table->string('name');
             $table->date('expiration_date');
             $table->date('start_date');
             $table->unsignedTinyInteger('cvv');
-            $table->unsignedBigInteger('card_type');
             $table->unsignedBigInteger('account_id');
             $table->tinyInteger('status'); // dang hoat dong- khoa the- khoa thanh toan online - khoa gg qua ATM $ POS
-            $table->foreign('account_id')->references('account_number')->on('accounts');
-            $table->foreign('card_type')->references('id')->on('card_type');
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->timestamps();
         });
     }

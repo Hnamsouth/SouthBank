@@ -14,6 +14,7 @@ class Admin extends Authenticatable
     const ADMIN = 3;
     const MANAGER = 2;
     const STAFF = 1;
+//    const CUSTOMER = 0;
     const ADMINISTRATOR = [self::ADMIN,self::MANAGER,self::STAFF];
 
     use HasApiTokens, HasFactory, Notifiable;
@@ -34,4 +35,6 @@ class Admin extends Authenticatable
     public function Permission(){
         return $this->hasOne(Permission::class);
     }
+
+
 }

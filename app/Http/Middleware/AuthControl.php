@@ -16,8 +16,6 @@ class AuthControl
      */
     public function handle(Request $request, Closure $next,$guard)
     {
-        dd($guard);
-
         return $next($request);
     }
 }

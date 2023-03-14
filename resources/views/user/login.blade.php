@@ -14,19 +14,34 @@
                 {{$qr}}
             </div>
             <div class="col-md-10 mx-auto col-lg-6">
-                <form class="p-4 p-md-5 rounded-3" action="{{ route('login') }}">
+                <form class="p-4 p-md-5 rounded-3" action="{{ route('login') }}" method="post">
+                    @csrf
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" style="">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" style="">
                         <label for="floatingInput">Email address</label>
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control form-control-navbar" id="floatingPassword" placeholder="Password">
+                        <input type="password" class="form-control form-control-navbar @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
                     <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="remember">
+                                {{ __('Remember Me') }}
+                            </label>
+                        </div>
                     </div>
                     <button class="w-100 btn btn-lg btn-wn bg-wn" type="submit"><span class="fs-5 fw-semibold">Sign up</span></button>
                     <hr class="my-4">

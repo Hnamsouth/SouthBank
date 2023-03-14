@@ -9,16 +9,18 @@ use App\Http\Controllers\Admin\Auth\LoginController;
      * @Route. for staff ,manager
      */
 
-Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('admin.login');
+Route::match(['get', 'post'], 'login', [LoginController::class, 'login'])->name('admin.login');
 
     Route::middleware(['admins'])->group(function (){
+
+
         Route::get('dashboard',function (){
 
             $user = Auth::user();
-            return 'heelo';
+            dd($user);
+            return $user;
 
         })->name('admin.dashboard');
-
         /**
          * @Route for only admin & manager
          */

@@ -3,7 +3,12 @@ use Pusher\Pusher;
 
 
 if(!function_exists('notify')){
-    function notify($my_channel, $my_event,$data){
+    /**
+     * @throws \Pusher\PusherException
+     * @throws \Pusher\ApiErrorException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    function notify($my_channel, $my_event, $data){
         $options = array(
             'cluster' => env('PUSHER_APP_CLUSTER'),
             'useTLS' => true

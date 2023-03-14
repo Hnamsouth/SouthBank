@@ -17,9 +17,9 @@ class BeneficiariesTable extends Migration
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->unsignedBigInteger('account_number');// số tk người hưởng thụ
-            $table->string('bank_name'); // tên ngân hang ng hưởng thụ
+            $table->string('name'); //	Tên người thụ hưởng
+            $table->unsignedBigInteger('account_number');// 	Tài khoản thụ hưởng
+            $table->unsignedBigInteger('bank_id'); // Đơn vị thụ hưởng
             $table->unsignedInteger('routing_number'); // số chuyển tuyeens của ngân hàng người hưởng thụ( thường là 9 số)
             $table->timestamps();
         });

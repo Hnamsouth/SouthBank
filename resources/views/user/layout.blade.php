@@ -8,7 +8,7 @@
     <meta name="generator" content="Hugo 0.108.0">
 
 {{--    <link rel="stylesheet" href="{{ mix('css/app.css') }}">--}}
-    <title>@yield('title','Layout')</title>s
+    <title>@yield('title','Layout')</title>
     @yield('head-js')
     @yield('before-css')
     @include('user.html.css')

@@ -16,6 +16,7 @@ class TransactionType extends Migration
         Schema::create('transaction_type', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            // chuyển tiền - nhận tiền - thanh toán hóa đơn - POS - rút tiền tại ATM- ứng tền ... dùng để xác định hạn mữa giao dịch
             $table->timestamps();
         });
     }

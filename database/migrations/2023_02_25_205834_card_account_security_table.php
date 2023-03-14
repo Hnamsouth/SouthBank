@@ -16,9 +16,9 @@ class CardAccountSecurityTable extends Migration
         Schema::create('card_account_security', function (Blueprint $table) {
             $table->id();
             $table->string('PIN_encrypted');
-            $table->unsignedBigInteger('card_number');
+            $table->unsignedBigInteger('card_id');
             $table->unsignedBigInteger('account_number');
-            $table->foreign('card_number')->references('card_number')->on('cards');
+            $table->foreign('card_id')->references('id')->on('cards');
             $table->foreign('account_number')->references('account_number')->on('accounts');
             $table->timestamps();
         });

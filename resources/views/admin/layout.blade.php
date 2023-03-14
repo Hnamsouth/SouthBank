@@ -29,7 +29,7 @@
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full" class="mini-sidebar">
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full" data-sidebartype="full" class="mini-sidebar">
     <!-- ============================================================== -->
     <!-- Topbar header - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -497,7 +497,6 @@
 @yield('before-js')
 @include('admin.html.script')
 @yield('after-js')
-
 
 <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M-1 202.348L-1 202.348C-1 202.348 103.96428571428571 202.348 103.96428571428571 202.348C103.96428571428571 202.348 207.92857142857142 202.348 207.92857142857142 202.348C207.92857142857142 202.348 311.8928571428571 202.348 311.8928571428571 202.348C311.8928571428571 202.348 415.85714285714283 202.348 415.85714285714283 202.348C415.85714285714283 202.348 519.8214285714286 202.348 519.8214285714286 202.348C519.8214285714286 202.348 623.7857142857142 202.348 623.7857142857142 202.348C623.7857142857142 202.348 727.75 202.348 727.75 202.348C727.75 202.348 727.75 202.348 727.75 202.348 "></path></svg>
 </body>

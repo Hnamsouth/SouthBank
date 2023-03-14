@@ -50,6 +50,24 @@ https://tailwindcss.com/docs/guides/laravel#vite
     },
 
 
+// install jwt
+composer require tymon/jwt-auth:^1.0.2
+Mở file config/app.php và thêm provider sau vào mảng providers:
+
+'providers' => [
+    Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+],
+Thêm các facades sau vào mảng aliases:
+'aliases' => [
+    'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+    'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+],
+Tiếp đó, sử dụng lệnh sau để public các file JWT Auth từ trong vendor sang config/jwt.php:
+    php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+Như các bạn đã biết, để mã hóa chuỗi token, ta phải sử dụng một khóa bí mật (secret key). Sử dụng lệnh sau để tạo secret key:
+    php artisan jwt:secret
+
 
 
 

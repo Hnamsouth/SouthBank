@@ -20,14 +20,13 @@ class Admin
     {
 //        check nếu  đã đăng nhập
 
-        if(auth()->check()){
-            $user= auth()->user();
-            if($user->isAdministrator()){ // check Administrator
-                return $next($request);
-            }
-            auth()->logout();
+        if(auth()->check() && auth()->user()->isAdministrator()){
+//            if(auth()->user()->isAdministrator()){ // check Administrator
+//            }
+//            auth()->logout();
+            return $next($request);
 //            return abort(404,'Bạn không thể quy cập trang web này');
         }
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with("err","User or password incorrect");
     }
 }

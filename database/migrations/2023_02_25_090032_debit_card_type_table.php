@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CardTypeTable extends Migration
+class DebitCardTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CardTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('card_type', function (Blueprint $table) {
+        Schema::create('debit_card_type', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->unsignedInteger('limit');
             $table->string('special_feature');
-            $table->unsignedInteger('annual_fees');
-            $table->unsignedTinyInteger('interest_rate'); // lai xuat
             $table->timestamps();
         });
     }
