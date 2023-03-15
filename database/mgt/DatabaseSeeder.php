@@ -2,12 +2,8 @@
 
 
 use App\Models\Admin;
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {

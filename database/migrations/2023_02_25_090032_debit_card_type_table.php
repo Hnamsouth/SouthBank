@@ -16,6 +16,7 @@ class DebitCardTypeTable extends Migration
         Schema::create('debit_card_type', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('img');
             $table->text('description');
             $table->string('special_feature');
             $table->timestamps();

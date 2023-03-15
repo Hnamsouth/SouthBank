@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Client\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -38,11 +41,11 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+//        $this->middleware('guest');
     }
     public function showRegistrationForm()
     {
-        return view('auth.passwords.register_bk');
+        return view('auth.register_card');
     }
 
     /**
@@ -58,6 +61,28 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string'], //, 'max:255'
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], //'unique:users' sẽ kiểm tra email tồn tại hay ko
+            'gender'=>['required'],
+            'phone'=>['required','string','max:10','unique:user_info'],
+            'CCCD'=>['required'],
+            'date_of_birth'=>['required','date'],
+            'education'=>['required'],
+            'employment_status'=>['required'],
+            'marriage'=>['required'],
+            'emergencyContactNumber1'=>['required'],
+            'emergencyContactNumber2'=>['required'],
+            'shortDescription'=>['required'],
+            'current_city'=>['required'],
+            'district'=>['required'],
+            'wards'=>['required'],
+            'current_address'=>['required', 'string'],
+            'company_name'=>['required', 'string'],
+            'company_city'=>['required'],
+            'company_district'=>['required'],
+            'company_wards'=>['required'],
+            'company_address'=>['required', 'string'],
+            'workingYears'=>['required'],
+            'workingMonths'=>['required'],
+            'pick_up_address'=>['required'],
             'password' => ['required', 'string', 'min:8',], // 'confirmed'
         ],[
 
@@ -77,6 +102,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+
         ]);
     }
 }

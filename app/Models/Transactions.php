@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Transactions extends Model
 {
     use HasFactory;
+    protected $table='transactions_history';
+
+    protected $fillable=[
+        'transaction_code',
+        'to_number',
+        'amount',
+        'fees',
+        'status',
+        'description',
+        'transaction_type_id',
+        'from_number',
+    ];
 }

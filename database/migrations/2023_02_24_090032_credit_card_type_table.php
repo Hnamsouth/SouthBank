@@ -16,6 +16,7 @@ class CreditCardTypeTable extends Migration
         Schema::create('credit_card_type', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('img');
             $table->text('description');
             $table->unsignedInteger('limit');               // hạn mức
             $table->string('special_feature');

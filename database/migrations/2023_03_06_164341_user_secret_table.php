@@ -17,10 +17,10 @@ class UserSecretTable extends Migration
             $table->id();
             $table->unsignedInteger('CMND_CCCD');
             $table->unsignedInteger('old_CMND_CCCD')->nullable();
-            $table->string('secret_question');
-            $table->string('selfie');// url
-            $table->string('CMND_CCCD_IMG_BEFORE');
-            $table->string('CMND_CCCD_IMG_AFTER');
+            $table->string('secret_question')->nullable();
+            $table->string('selfie')->nullable();// url
+            $table->string('CMND_CCCD_IMG_BEFORE')->nullable();
+            $table->string('CMND_CCCD_IMG_AFTER')->nullable();
             $table->string('relative_phone_1');
             $table->string('relative_phone_2');
             $table->unsignedDecimal('salary',14,2);

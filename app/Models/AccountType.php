@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Benefitciaries extends Model
+class AccountType extends Model
 {
     use HasFactory;
-    protected $table='beneficiaries';
+
+
+    protected $table='account_type';
     protected  $fillable=[
-        'user_id',
         'name',
-        'account_number',
-        'routing_number',
+        'account_benefit_id',
+        'special_offer',
+        'target_customers',
     ];
 }

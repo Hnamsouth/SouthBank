@@ -19,7 +19,7 @@ class UserInfoTable extends Migration
             $table->string('name');
             $table->date('birth_date');
             $table->string('current_address');
-            $table->string('nationality');
+            $table->string('education_level');
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

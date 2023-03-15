@@ -14,7 +14,7 @@
                                     <div class="card">
                                         <div class="card-body wizard-content">
                                             <div class="text-center">
-                                                <h4 class="card-title">Online Register</h4>
+                                                <h4 class="card-title">Online Card Register</h4>
                                                 <p class="card-subtitle mb-3">  </p>
                                             </div>
                                             <form  method="post" action="{{ route('register') }}" class="validation-wizard wizard-circle mt-5">
@@ -63,7 +63,7 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="password">Password</label>
-                                                                <input type="text" name="password" class="form-control required" id="password" />
+                                                                <input type="password" name="password" class="form-control required" id="password" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -191,7 +191,7 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="city">Province/City</label>
-                                                                <select class="form-select required" id="city" name="city">
+                                                                <select class="form-select required" id="city" name="current_city">
                                                                     <option value="1">Select City</option>
                                                                 </select>
                                                             </div>
@@ -199,7 +199,7 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="district">District</label>
-                                                                <select class="form-select required" id="district" name="district">
+                                                                <select class="form-select required" id="district" name="current_district">
                                                                     <option value="1">Select City</option>
                                                                 </select>
                                                             </div>
@@ -207,7 +207,7 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="wards">Wards</label>
-                                                                <select class="form-select required" id="wards" name="wards">
+                                                                <select class="form-select required" id="wards" name="current_wards">
                                                                     <option value="1">Select City</option>
                                                                 </select>
                                                             </div>

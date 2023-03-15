@@ -16,15 +16,14 @@ class TransactionsHistoryTable extends Migration
         Schema::create('transactions_history', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('transaction_code')->unique();
-            $table->unsignedBigInteger('to_account_number');
+            $table->string('to_number');
             $table->unsignedDecimal('amount',12,3);
             $table->unsignedDecimal('fees',12,4)->nullable();
             $table->tinyInteger('status');
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('transaction_type'); //
-            $table->unsignedBigInteger('from_account_number');
-            $table->foreign('from_account_number')->references('account_number')->on('accounts');
-            $table->foreign('transaction_type')->references('id')->on('transaction_type');
+            $table->string('from_account_number');
+            $table->unsignedBigInteger('from_number'); //
+            $table->foreign('transaction_type_id')->references('id')->on('transaction_type');
             $table->timestamps();
         });
     }

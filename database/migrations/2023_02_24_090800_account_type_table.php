@@ -16,9 +16,11 @@ class AccountTypeTable extends Migration
         Schema::create('account_type', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('benefit');
-            $table->string('special_offer');
+            $table->string('img');
+            $table->string('special_offer')->nullable();
             $table->string('target_customers');
+            $table->unsignedBigInteger('account_benefit_id');
+            $table->foreign('account_benefit_id')->references('id')->on('account_benefits');
             $table->timestamps();
         });
     }

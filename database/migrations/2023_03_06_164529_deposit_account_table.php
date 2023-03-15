@@ -24,7 +24,8 @@ class DepositAccountTable extends Migration
             $table->unsignedInteger('days');                                // số ngày đã gửi
             $table->unsignedBigInteger('deposit_type_id');                  // loại tài khoản tiết kiệm
             $table->unsignedBigInteger('account_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreign('deposit_type_id')->references('id')->on('deposit_type');
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->boolean('status');                                      // trạng thái (đóng- hoạt động)
             $table->timestamps();
         });

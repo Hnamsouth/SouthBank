@@ -7,6 +7,7 @@ use App\Http\Controllers\SendSMS;
 use App\Models\User;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use \App\Http\Controllers\User\Auth\RegisterController;
 
 
 /*
@@ -27,9 +28,9 @@ Route::get('/', function () {
 //    return view('customer.demo');
 })->name('home');
 
+Route::get('acc-register',[RegisterController::class,'showRegistrationForm'])->name('acc.register');
+Route::post('acc-register',[RegisterController::class,'register'])->name('acc.register');
 
-Route::view('/home-admin', 'admin.Home');
-Route::view('/layout', 'admin.layout');
 
 
 Route::middleware(['auth:web'])->prefix('/user')->group(function (){
@@ -37,19 +38,20 @@ Route::middleware(['auth:web'])->prefix('/user')->group(function (){
     Route::get('checkout', function () { return "check out";});
     Route::get('transaction', function () {});
     Route::get('payment', function () {});
-
 });
 
 Auth::routes();
 
 //  test
+
 Route::get('/send-SMS',[SendSMS::class,'SendMess']);
 
 Route::get('logout/{id}',function ($id){
     $id==1?Auth::guard('admin')->logout():Auth::logout();
     return redirect()->route('home');
 })->name('user-logout');
-//Route::get('/user-register', function () {
-//   return view('user.register');
-//});
+
+Route::view('/home-admin', 'admin.Home');
+Route::view('/layout', 'admin.layout');
+
 

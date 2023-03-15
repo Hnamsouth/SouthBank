@@ -16,10 +16,10 @@ class CardAccountConnectionTable extends Migration
         Schema::create('card_account_connection', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('card_id')->nullable();
-            $table->unsignedBigInteger('account_number');
+            $table->unsignedBigInteger('account_id');
 
             $table->foreign('card_id')->references('id')->on('cards');
-            $table->foreign('account_number')->references('account_number')->on('accounts');
+            $table->foreign('account_id')->references('account_number')->on('accounts');
             $table->timestamps();
         });
     }
