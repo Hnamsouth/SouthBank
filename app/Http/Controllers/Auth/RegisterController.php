@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::USER_PROFILE;
 
     /**
      * Create a new controller instance.
@@ -40,6 +40,10 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    public function showRegistrationForm()
+    {
+        return view('auth.passwords.register_bk');
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -49,10 +53,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+//        dd($data);
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string'], //, 'max:255'
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], //'unique:users' sẽ kiểm tra email tồn tại hay ko
+            'password' => ['required', 'string', 'min:8',], // 'confirmed'
+        ],[
+
         ]);
     }
 
@@ -64,6 +72,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+//        dd('create from register');
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

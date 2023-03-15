@@ -16,7 +16,6 @@ class AccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('account_number')->unique();
-            $table->unsignedDecimal('balance',16,4);
             $table->boolean('status');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('account_type');

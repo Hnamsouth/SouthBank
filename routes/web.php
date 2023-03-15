@@ -24,6 +24,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 Route::get('/', function () {
 //    return view('admin.layout');
     return view('user.home');
+//    return view('customer.demo');
 })->name('home');
 
 
@@ -32,7 +33,7 @@ Route::view('/layout', 'admin.layout');
 
 
 Route::middleware(['auth:web'])->prefix('/user')->group(function (){
-    Route::get('profile', function () { return view('user_p.layout');}) ->name('user.profile');
+    Route::get('profile', function () { return view('customer.demo');}) ->name('user.profile');
     Route::get('checkout', function () { return "check out";});
     Route::get('transaction', function () {});
     Route::get('payment', function () {});
