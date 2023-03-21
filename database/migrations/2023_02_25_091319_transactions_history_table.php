@@ -23,6 +23,7 @@ class TransactionsHistoryTable extends Migration
             $table->text('description')->nullable();
             $table->string('from_account_number');
             $table->unsignedBigInteger('from_number'); //
+            $table->unsignedBigInteger('transaction_type_id');
             $table->foreign('transaction_type_id')->references('id')->on('transaction_type');
             $table->timestamps();
         });

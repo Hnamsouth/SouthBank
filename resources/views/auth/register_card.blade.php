@@ -25,14 +25,13 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="wfirstName2"> Fullname : <span class="danger">*</span>
-                                                                </label>
+                                                                <label for="wfirstName2"> Fullname <span class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control required" id="wfirstName2" name="name" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label>Requirements :</label>
+                                                                <label>Gender <span class="text-danger">*</span></label>
                                                                 <div class="c-inputs-stacked">
                                                                     <div class="form-check">
                                                                         <label class="form-check-label" for="male">Male</label>
@@ -49,23 +48,22 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="wemailAddress2"> Email Address : <span class="danger">*</span>
-                                                                </label>
+                                                                <label for="wemailAddress2"> Email Address <span class="text-danger">*</span></label>
                                                                 <input type="email" class="form-control required" id="wemailAddress2" name="email" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="phoneNumber2">Phone Number :</label>
+                                                                <label for="phoneNumber2">Phone Number <span class="text-danger">*</span></label>
                                                                 <input type="tel" name="phone" class="form-control required" id="phoneNumber2" />
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label for="password">Password</label>
-                                                                <input type="password" name="password" class="form-control required" id="password" />
-                                                            </div>
-                                                        </div>
+{{--                                                        <div class="col-md-6">--}}
+{{--                                                            <div class="mb-3">--}}
+{{--                                                                <label for="password">Password</label>--}}
+{{--                                                                <input type="password" name="password" class="form-control required" id="password" />--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
                                                     </div>
                                                 </section>
                                                 <!-- Step 2 -->
@@ -75,7 +73,7 @@
                                                         <h2>Basic information</h2>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="CCCD">ID number/CCCD</label>
+                                                                <label for="CCCD">ID number/CCCD <span class="text-danger">*</span></label>
                                                                 <input type="number" name="CCCD" class="form-control required" id="CCCD" />
                                                             </div>
                                                         </div>
@@ -87,13 +85,13 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="date_of_birth">Date of birth</label>
+                                                                <label for="date_of_birth">Date of birth <span class="text-danger">*</span></label>
                                                                 <input type="date" name="date_of_birth" class="form-control required" id="date_of_birth" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="education">Academic level</label>
+                                                                <label for="education">Education level <span class="text-danger">*</span></label>
                                                                 <select class="form-select required" id="education" name="education">
                                                                     <option value="1">After university</option>
                                                                     <option value="2">University</option>
@@ -147,27 +145,27 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="income">Monthly income(Example:7,000,000 VND)</label>
+                                                                <label for="income">Monthly income(Example:7,000,000 VND) <span class="text-danger">*</span></label>
                                                                 <input type="number" name="income" class="form-control required" id="income" />
                                                             </div>
                                                         </div>
                                                         <h2>Contact person when needed</h2>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="emergencyContactNumber1">Phone number of friends and relatives 1</label>
-                                                                <input type="number" name="emergencyContactNumber1" class="form-control" id="emergencyContactNumber1" />
+                                                                <label for="emergencyContactNumber1">Phone number of friends and relatives 1 <span class="text-danger">*</span></label>
+                                                                <input type="number" name="emergencyContactNumber1" class="form-control required" id="emergencyContactNumber1" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="emergencyContactNumber2">Phone number of friends and relatives 2</label>
-                                                                <input type="number" name="emergencyContactNumber2" class="form-control" id="emergencyContactNumber2" />
+                                                                <label for="emergencyContactNumber2">Phone number of friends and relatives 2 <span class="text-danger">*</span></label>
+                                                                <input type="number" name="emergencyContactNumber2" class="form-control required" id="emergencyContactNumber2" />
                                                             </div>
                                                         </div>
                                                         <h2>Referrer information (optional)</h2>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label for="shortDescription3">Short Description :</label>
+                                                                <label for="shortDescription3">Short Description </label>
                                                                 <textarea name="shortDescription" id="shortDescription3" rows="6" class="form-control"></textarea>
                                                             </div>
                                                         </div>
@@ -214,7 +212,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="current_address"> Current address (house number, street)</label>
+                                                                <label for="current_address"> Current address (house number, street)  <span class="text-danger">*</span></label>
                                                                 <input class="form-select required" id="current_address" name="current_address">
                                                             </div>
                                                         </div>
@@ -277,7 +275,7 @@
                                                         <h2>Card pick up address</h2>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label for="current_pickup_address">Current address </label>
+                                                                <label for="current_pickup_address">Current address  <span class="text-danger">*</span></label>
                                                                 <input type="radio" class="form-check-input required" name="pick_up_address" id="current_pickup_address">
                                                             </div>
                                                         </div>

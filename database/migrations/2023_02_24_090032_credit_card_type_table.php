@@ -18,10 +18,11 @@ class CreditCardTypeTable extends Migration
             $table->string('name');
             $table->string('img');
             $table->text('description');
-            $table->unsignedInteger('limit');               // hạn mức
+            $table->unsignedDecimal('limit',16,2);               // hạn mức
             $table->string('special_feature');
-            $table->unsignedInteger('annual_fees');
+            $table->unsignedDecimal('annual_fees',8,2);
             $table->unsignedTinyInteger('interest_rate'); // lai xuat
+            $table->unsignedBigInteger('account_type_id')->nullable();
             $table->timestamps();
         });
     }

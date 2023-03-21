@@ -28,10 +28,11 @@ class NotifyAfterAccountCreated
      */
     public function handle(NewAccountCreated $event)
     {
-        //
+//  get account
         $acc=$event->account;
-        //
+// send notify to admin
         notify('my-channel','my-event',$acc);
+// send mail to user
         Mail::to($acc->email)->send(new SendEmailVerification('hello'));
     }
 }

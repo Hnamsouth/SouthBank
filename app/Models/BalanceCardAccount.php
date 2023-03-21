@@ -11,6 +11,7 @@ class BalanceCardAccount extends Model
     protected $table='balance_card_account';
     protected  $fillable=[
         'balance',
-        'card_account_connection_id',
+        'account_id',
+        'card_id',
     ];
 }

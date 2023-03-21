@@ -16,8 +16,10 @@ class BalanceCardAccountTable extends Migration
         Schema::create('balance_card_account', function (Blueprint $table) {
             $table->id();
             $table->unsignedDecimal('balance',16,4);
-            $table->unsignedBigInteger('card_account_connection_id');
-            $table->foreign('card_account_connection_id')->references('id')->on('card_account_connection');
+            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('card_id');
+            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('card_id')->references('id')->on('cards');
             $table->timestamps();
         });
     }

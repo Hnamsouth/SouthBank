@@ -18,11 +18,13 @@ class CardsTable extends Migration
             $table->unsignedBigInteger('card_number')->unique();
             $table->string('name');
             $table->date('expiration_date');
-            $table->date('start_date');
-            $table->unsignedTinyInteger('cvv');
-            $table->unsignedBigInteger('account_id');
+            $table->date('activation_date');
+            $table->unsignedInteger('cvv');
             $table->tinyInteger('status'); // dang hoat dong- khoa the- khoa thanh toan online - khoa gg qua ATM $ POS
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('card_type_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('card_type_id')->references('id')->on('card_type');
             $table->timestamps();
         });
     }

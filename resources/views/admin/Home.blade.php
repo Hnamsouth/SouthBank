@@ -1485,6 +1485,22 @@
     <script src="../../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <!-- Chart JS -->
     <script src="../../dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('3fcfa27845f08d3991af', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('staff_user');
+        channel.bind('user_created', function(data) {
+            console.log(JSON.stringify(data));
+            confirm(JSON.stringify(data));
+        });
+    </script>
 
     <script>
         $('#pusher').click(()=>{

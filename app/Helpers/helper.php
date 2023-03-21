@@ -8,7 +8,7 @@ if(!function_exists('notify')){
      * @throws \Pusher\ApiErrorException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function notify($my_channel, $my_event, $data){
+    function notify($my_channel, $my_event, $user,$mess){
         $options = array(
             'cluster' => env('PUSHER_APP_CLUSTER'),
             'useTLS' => true
@@ -19,8 +19,10 @@ if(!function_exists('notify')){
             env('PUSHER_APP_ID'),
             $options
         );
-        $data['confirm']=true;
-        $data['message'] = 'new order added!! do you want to reload this page';
+
+        $data['message'] = $mess;
+        $data['user_id'] = $user;
+//        dd($data);
         $pusher->trigger($my_channel, $my_event, $data);
     }
 }

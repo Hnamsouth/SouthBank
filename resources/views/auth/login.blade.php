@@ -4,6 +4,7 @@
     $token = bcrypt('hello, world!'); // generate a unique token
      $qr =QrCode::size(250)->generate($token); // generate QR code with the token
 @endphp
+
 @section('main-content')
     <div class="position-relative overflow-hidden radial-gradient min-vh-100">
         <div class="position-relative z-index-5">
@@ -31,26 +32,26 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Username</label>
-                                        <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                        @error('email')
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" name="username" value="{{ old('username') }}" required class="form-control  @error('username') is-invalid @enderror" id="username" aria-describedby="emailHelp">
+                                        @error('username')
                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                         @enderror
                                     </div>
                                     <div class="mb-4">
-                                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" id="exampleInputPassword1">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" name="password" required class="form-control  @error('password') is-invalid @enderror" id="password">
                                         @error('password')
                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                         @enderror
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input primary" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} id="flexCheckChecked" checked="">
-                                            <label class="form-check-label text-dark" for="flexCheckChecked">
-                                                Remeber this Device
-                                            </label>
-                                        </div>
+{{--                                        <div class="form-check">--}}
+{{--                                            <input class="form-check-input primary" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} id="flexCheckChecked" checked="">--}}
+{{--                                            <label class="form-check-label text-dark" for="flexCheckChecked">--}}
+{{--                                                Remeber this Device--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
                                         <a class="text-primary fw-medium" href="./authentication-forgot-password.html">Forgot Password ?</a>
                                     </div>
                                     <button class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign In</button>

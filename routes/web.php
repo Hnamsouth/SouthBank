@@ -1,13 +1,17 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Mail\NewUserCreated;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SendSMS;
 use App\Models\User;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use \App\Http\Controllers\User\Auth\RegisterController;
+use \App\Http\Controllers\User\Account\UserAccountController;
 
 
 /*
@@ -24,20 +28,20 @@ use \App\Http\Controllers\User\Auth\RegisterController;
 
 Route::get('/', function () {
 //    return view('admin.layout');
-    return view('user.home');
-//    return view('customer.demo');
+//    return view('user.home');
+    return view('customer.page.home');
 })->name('home');
 
-Route::get('acc-register',[RegisterController::class,'showRegistrationForm'])->name('acc.register');
-Route::post('acc-register',[RegisterController::class,'register'])->name('acc.register');
-
-
+Route::get('acc-register/{acc_type?}',[RegisterController::class,'showRegistrationForm'])->name('acc.register');
+Route::post('acc-register',[RegisterController::class,'register']);
 
 Route::middleware(['auth:web'])->prefix('/user')->group(function (){
     Route::get('profile', function () { return view('customer.demo');}) ->name('user.profile');
-    Route::get('checkout', function () { return "check out";});
-    Route::get('transaction', function () {});
-    Route::get('payment', function () {});
+
+    Route::prefix('acc')->group(function(){
+        Route::get('list',[UserAccountController::class,'showUserAccounts'])->name('user.account.list');
+    });
+
 });
 
 Auth::routes();
@@ -49,9 +53,21 @@ Route::get('/send-SMS',[SendSMS::class,'SendMess']);
 Route::get('logout/{id}',function ($id){
     $id==1?Auth::guard('admin')->logout():Auth::logout();
     return redirect()->route('home');
+
+    Route::view('/layout', 'customer.layout3');
 })->name('user-logout');
 
 Route::view('/home-admin', 'admin.Home');
-Route::view('/layout', 'admin.layout');
 
+Route::get('/account-list', function(){
+    $acc=\App\Models\AccountType::all();
+    return view('customer.page.account_list',compact('acc'));
+})->name('account.list');
+
+Route::get('/api-banks', function(){
+    $bank=Http::get('https://api.vietqr.io/v2/banks');
+    $b1=$bank->json() ;
+    dd($b1['data']);
+    return $bank;
+});
 

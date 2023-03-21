@@ -11,10 +11,12 @@ class CreditCardType extends Model
     protected $table='credit_card_type';
     protected  $fillable=[
         'name',
+        'img',
         'description',
         'limit',
         'special_feature',
         'annual_fees',
-        'interest_rate'
+        'interest_rate',
+        'account_type_id',
     ];
 }

@@ -10,8 +10,16 @@ class CardType extends Model
     use HasFactory;
     protected $table='card_type';
     protected  $fillable=[
-        'card_id',
-        'credit_card_id',
-        'debit_card_id'
+        'name',
+        'type',
+        'credit_card_type_id',
+        'debit_card_type_id'
     ];
+
+    public function DebitCardType(){
+        return $this->belongsTo(DebitCardType::class);
+    }
+    public function CreditCardType(){
+        return $this->belongsTo(CreditCardType::class);
+    }
 }

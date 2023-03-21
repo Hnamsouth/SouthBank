@@ -18,9 +18,9 @@ class AccountsTable extends Migration
             $table->unsignedBigInteger('account_number')->unique();
             $table->boolean('status');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('account_type');
+            $table->unsignedBigInteger('account_type_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('account_type')->references('id')->on('account_type');
+            $table->foreign('account_type_id')->references('id')->on('account_type');
             $table->timestamps();
         });
     }

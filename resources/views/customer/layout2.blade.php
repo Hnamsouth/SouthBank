@@ -38,11 +38,7 @@
 <!-- Body Wrapper -->
 <!-- --------------------------------------------------- -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
-{{--    <div class="body-wrapper">--}}
-{{--        <div class="container-fluid">--}}
-{{--          --}}
-{{--        </div>--}}
-{{--    </div>--}}
+
     @yield('main-content')
 </div>
 

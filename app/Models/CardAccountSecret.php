@@ -14,6 +14,8 @@ class CardAccountSecret extends Model
         'card_lock',
         'atm_pos_lock',
         'online_lock',
-        'card_account_connection_id ',
+        'user_card_account_id',
+        'account_id',
+        'card_id',
     ];
 }

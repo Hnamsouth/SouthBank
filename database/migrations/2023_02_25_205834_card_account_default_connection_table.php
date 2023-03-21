@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CardAccountConnectionTable extends Migration
+class CardAccountDefaultConnectionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CardAccountConnectionTable extends Migration
      */
     public function up()
     {
-        Schema::create('card_account_connection', function (Blueprint $table) {
+        Schema::create('card_account_default_connection', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('card_id')->nullable();
-            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('card_type_id')->nullable();
+            $table->unsignedBigInteger('account_type_id');
 
-            $table->foreign('card_id')->references('id')->on('cards');
-            $table->foreign('account_id')->references('account_number')->on('accounts');
+            $table->foreign('card_type_id')->references('id')->on('card_type');
+            $table->foreign('account_type_id')->references('id')->on('account_type');
             $table->timestamps();
         });
     }

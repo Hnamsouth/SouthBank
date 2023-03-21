@@ -19913,9 +19913,11 @@ textarea.form-control-lg {
         flex-basis: auto
     }
 
+
     .navbar-expand-lg .navbar-toggler {
         display: none
     }
+
 
     .navbar-expand-lg .offcanvas {
         position: static;
@@ -19942,6 +19944,7 @@ textarea.form-control-lg {
         overflow-y: visible
     }
 }
+
 
 @media (min-width: 1200px) {
     .navbar-expand-xl {
@@ -21862,6 +21865,9 @@ textarea.form-control-lg {
         max-width: none;
         height: 100%;
         margin: 0
+    }
+    .aside-list{
+        display:none !important;
     }
 
     .modal-fullscreen-lg-down .modal-content {
