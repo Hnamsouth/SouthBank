@@ -17,13 +17,14 @@ class TransactionsHistoryTable extends Migration
             $table->id();
             $table->unsignedInteger('transaction_code')->unique();
             $table->string('to_number');
+            $table->string('from_number'); //
+            $table->string('bank_name'); //
+            $table->string('account_name'); //
             $table->unsignedDecimal('amount',12,3);
+            $table->unsignedBigInteger('transaction_type_id');
             $table->unsignedDecimal('fees',12,4)->nullable();
             $table->tinyInteger('status');
             $table->text('description')->nullable();
-            $table->string('from_account_number');
-            $table->unsignedBigInteger('from_number'); //
-            $table->unsignedBigInteger('transaction_type_id');
             $table->foreign('transaction_type_id')->references('id')->on('transaction_type');
             $table->timestamps();
         });

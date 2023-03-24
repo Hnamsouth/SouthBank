@@ -40,9 +40,28 @@ Route::middleware(['auth:web'])->prefix('/user')->group(function (){
 
     Route::prefix('acc')->group(function(){
         Route::get('list',[UserAccountController::class,'showUserAccounts'])->name('user.account.list');
+        Route::get('detail/{account}',[UserAccountController::class,'showAccountDetails'])->name('user.account.detail');
+
+        Route::prefix('transfer')->group(function(){
+            Route::get('within-bank',[UserAccountController::class,'showTransferWithinBank'])->name('user.transfer.within-bank');
+            Route::post('within-bank',[UserAccountController::class,'handleTransfer']);
+
+            Route::get('transfer-end/{transId}',[UserAccountController::class,'showTransferEnd'])->name('user.transfer.end');
+
+            Route::post('search-acc',[UserAccountController::class,'SearchAccount'])->name('search-acc');
+            Route::post('generate-pw',[UserAccountController::class,'GTransPW'])->name('g.t.pw');
+            Route::post('check-transfer-pw',[UserAccountController::class,'CheckTransPW'])->name('c.t.pw');
+
+
+            Route::get('outside-bank',[UserAccountController::class,'showTransferOutsideBank'])->name('user.transfer.outside-bank');
+            Route::post('outside-bank',[UserAccountController::class,'showTransferOutsideBank']);
+
+        });
     });
 
 });
+
+Route::post('check-register-valid',[RegisterController::class,'checkRegister'])->name('check.register');
 
 Auth::routes();
 
@@ -59,15 +78,19 @@ Route::get('logout/{id}',function ($id){
 
 Route::view('/home-admin', 'admin.Home');
 
-Route::get('/account-list', function(){
-    $acc=\App\Models\AccountType::all();
-    return view('customer.page.account_list',compact('acc'));
-})->name('account.list');
-
 Route::get('/api-banks', function(){
     $bank=Http::get('https://api.vietqr.io/v2/banks');
     $b1=$bank->json() ;
     dd($b1['data']);
     return $bank;
 });
+Route::get('account-list',function(){
+   $acc=\App\Models\AccountType::all();
+   return view('customer.page.account_list',compact('acc'));
+});
+Route::get('upfile',function(){ return view('user.uoload_file_demo');})->name('upfile');
+Route::post('upfile',function(Request $request){
+    dd($request);
+    dd($request->file('image'));}
+)->name('upfile');
 

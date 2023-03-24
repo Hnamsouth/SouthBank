@@ -15,7 +15,7 @@ class CardTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->colorName(),
+            'name'=>"CardType Name".$this->faker->colorName(),
             'type'=>$this->TYPE[random_int(0,1)],
             'credit_card_type_id',
             'debit_card_type_id'

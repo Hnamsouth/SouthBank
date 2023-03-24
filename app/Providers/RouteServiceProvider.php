@@ -19,6 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/';
     public const USER_PROFILE = '/user/profile';
+    public const USER_ACCOUNT0_LIST = '/user/acc/list';
     public const ADMIN = '/sb-admin/dashboard';
     public const CUSTOMERS = '/';
 

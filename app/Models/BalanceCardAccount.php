@@ -14,4 +14,9 @@ class BalanceCardAccount extends Model
         'account_id',
         'card_id',
     ];
+
+    public function Accounts(){
+        return $this->belongsTo(Accounts::class);
+    }
+
 }

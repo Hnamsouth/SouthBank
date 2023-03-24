@@ -15714,6 +15714,8 @@ progress {
     .container,.container-sm {
         max-width:540px
     }
+
+
 }
 
 @media (min-width: 768px) {
@@ -17359,6 +17361,9 @@ progress {
     .table-responsive-sm {
         overflow-x:auto;
         -webkit-overflow-scrolling: touch
+    }
+    .balance-ui{
+        display: none !important;
     }
 }
 
@@ -40618,4 +40623,8 @@ ul {
 
 .text-body-color {
     color: #5a6a85
+}
+/* custom*/
+.text-cl-gray{
+    color: #939393
 }

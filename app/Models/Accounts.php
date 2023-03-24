@@ -16,9 +16,19 @@ class Accounts extends Model
       'account_type_id'
     ];
 
+    public function scopeSearch($query,$account_number){
+        if($account_number && $account_number!=""){
+            return $query->where('account_number','=',$account_number);
+        }
+        return $query;
+    }
+
     public function User(){ return $this->belongsTo(User::class,'user_id','id');}
 
     public function AccountType(){
         return $this->belongsTo(AccountType::class);
+    }
+    public function BalanceCardAccount(){
+        return $this->hasOne(BalanceCardAccount::class,'account_id','id');
     }
 }

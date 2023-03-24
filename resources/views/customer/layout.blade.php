@@ -9,6 +9,7 @@
     <!-- --------------------------------------------------- -->
     <!-- Required Meta Tag -->
     <!-- --------------------------------------------------- -->
+    <base href="/"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="handheldfriendly" content="true" />
@@ -55,9 +56,7 @@
         <!-- --------------------------------------------------- -->
         <!-- Header End -->
         <!-- --------------------------------------------------- -->
-        <div class="container-fluid">
-            @yield('main-content')
-        </div>
+        @yield('main-content')
     </div>
 </div>
 <!--  Mobilenavbar -->

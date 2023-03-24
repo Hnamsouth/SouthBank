@@ -14,6 +14,7 @@ use App\Models\User_Info;
 use App\Models\User_Secret;
 use App\Models\UserCardAccount;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
@@ -176,6 +177,24 @@ class RegisterController extends Controller
 
         // get img \cloudinary()->getImage($publicId);
         return $result;
+    }
+
+
+    protected function checkRegister(Request $request){
+
+        try {
+            $p=$request->get('phone');
+            $e=$request->get('email');
+            $c=$request->get('CCCD');
+            if($c!=null){
+               $us= User_Secret::where('CMND_CCCD','=',$c)->first();
+                return $us->user_id?0:1;
+            }
+            $user= User::where($p!=null?'username':'email','=',$p!=null?$p:$e)->first();
+            return $user->id?0:1;
+        }catch (Exception $e){}
+        return 1;
+
     }
 
     protected function sendNotify(array $data){

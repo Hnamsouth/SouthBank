@@ -25,7 +25,7 @@
                     Please confirm that you want to use this email address with your Vonage APIs account. If you did not request this change, then feel free to ignore this email.
                 </p>
                 <p style="font-size:16px;margin-bottom:16px;line-height:24px">
-                    <a href="{{ route('verify',['token'=>$token]) }}" style="background:#131415;color:#fff;font-size:14px;border:0;border-radius:4px;display:inline-block;line-height:24px;margin:8px 0;min-height:20px;outline:0;padding:8px 20px;text-align:center;vertical-align:middle;white-space:nowrap;text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://iam.idp.vonage.com/self-service/verification?flow%3D187d6507-2401-4487-a749-73d38e9c344e%26token%3D7ueNtLRhWrFl27J15nSmLqpYC6MbA5WR&amp;source=gmail&amp;ust=1676809058748000&amp;usg=AOvVaw1jf_hfau20ZWahWAsMN5-l">
+                    <a href="" style="background:#131415;color:#fff;font-size:14px;border:0;border-radius:4px;display:inline-block;line-height:24px;margin:8px 0;min-height:20px;outline:0;padding:8px 20px;text-align:center;vertical-align:middle;white-space:nowrap;text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://iam.idp.vonage.com/self-service/verification?flow%3D187d6507-2401-4487-a749-73d38e9c344e%26token%3D7ueNtLRhWrFl27J15nSmLqpYC6MbA5WR&amp;source=gmail&amp;ust=1676809058748000&amp;usg=AOvVaw1jf_hfau20ZWahWAsMN5-l">
                         {{ $token }}
                     </a>
                 </p></div>

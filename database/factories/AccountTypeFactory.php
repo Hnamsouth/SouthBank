@@ -17,7 +17,7 @@ class AccountTypeFactory extends Factory
     {
         return [
             //
-            'name'=>$this->faker->colorName(),
+            'name'=>"Account Name ".$this->faker->colorName(),
             'name_dev'=>$this->acc_type[random_int(0,3)],
             'img'=>$this->faker->imageUrl(320,240),
             'special_offer'=>$this->faker->address(),

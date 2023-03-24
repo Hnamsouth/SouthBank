@@ -18,4 +18,7 @@ class User_Info extends Model
         'nationality',
         'user_id',
     ];
+    public function User(){
+        return $this->belongsTo(User::class);
+    }
 }

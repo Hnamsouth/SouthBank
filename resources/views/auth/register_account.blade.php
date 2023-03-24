@@ -300,7 +300,7 @@
                         finish: "Register",
                     },
                     onStepChanging: function (event, currentIndex, newIndex) {
-                        // console.log(currentIndex,newIndex)
+                        console.log("asda   "+currentIndex,newIndex)
                         let checkRequied=(
                             currentIndex > newIndex ||(!(3 === newIndex && Number($("#age-2").val()) < 18) &&
                                 (currentIndex < newIndex &&(form.find(".body:eq(" + newIndex + ") label.error").remove(),
@@ -309,19 +309,36 @@
                         );
                         if(checkRequied){ // nếu form đủ giá trị
                             //   =>  xác thực phone number
-
+                            if(currentIndex===1){
+                                let phone=document.getElementById('phone').value;
+                                document.getElementById('show_username').setAttribute('value',phone);
+                                document.getElementById('hidden_username').setAttribute('value',phone);
+                            }
                         }
                         return checkRequied;
                     },
                     onFinishing: function (event, currentIndex) {
-                        // console.log((form.validate().settings.ignore = ":disabled"), form.valid())
                         return (form.validate().settings.ignore = ":disabled"), form.valid();
                     },
                     onFinished: function (event, currentIndex) {
-                        // console.log(event, currentIndex);
                     },
                 });
-                $(".validation-wizard").validate({
+                $.validator.addMethod("check_register", function (value, element,params) {
+                    if(params.phone!=null){
+                        return this.optional(element) || params.phone!==0 ;
+                    }else if(params.email!=null){
+                        return this.optional(element) || params.email!==0 ;
+                    }else if(params.CCCD!=null){
+                        return this.optional(element) || params.CCCD!==0 ;
+                    }
+                },function (params){
+                    let mess=params.phone===0?"phone number":params.email===0?"email":"CCCD";
+                    return "Your "+mess+" is already registered";
+                });
+
+
+
+                let validator=$(".validation-wizard").validate({
                     ignore: "input[type=hidden]",
                     errorClass: "text-danger",
                     successClass: "text-success",
@@ -337,10 +354,77 @@
                     rules: {
                         email: {
                             email: !0,
+                            check_register:{
+                                email:1
+                            }
                         },
-                    },
+                        phone:{
+                            required:true,
+                            check_register:{
+                                phone:1
+                            }
+                        },
+                        CCCD:{
+                            check_register:{
+                                CCCD:1
+                            }
+                        }
+                    }
                 });
                 // custom
+                let phone=$('#phone');
+                let email=$('#email');
+                let cccd=$('#CMND_CCCD');
+
+                phone.on('change', async ()=>{
+                    let data = await  checkRegister(phone.val(),null,null);
+                    if(data !=="1"){
+                        validator.settings.rules.phone.check_register.phone = 0;
+                        validator.element("#phone");
+                    }else {
+                        validator.settings.rules.phone.check_register.phone = 1;
+                        validator.element("#phone")
+                    }
+                })
+                email.on('change', async ()=>{
+                    let data = await  checkRegister(null,email.val(),null);
+                    if(data !=="1"){
+                        validator.settings.rules.email.check_register.email = 0;
+                        validator.element("#email");
+                    }else {
+                        validator.settings.rules.email.check_register.email = 1;
+                        validator.element("#email")
+                    }
+                })
+                cccd.on('change', async ()=>{
+                    let data = await  checkRegister(null,null,cccd.val());
+                    if(data !=="1"){
+                        validator.settings.rules.CCCD.check_register.CCCD = 0;
+                        validator.element("#CMND_CCCD");
+                    }else {
+                        validator.settings.rules.CCCD.check_register.CCCD = 1;
+                        validator.element("#CMND_CCCD")
+                    }
+                })
+
+                async function checkRegister(p,e,c){
+                    let a;
+                    await $.ajax({
+                                url:"{{route('check.register')}}",
+                                type:"post",
+                                data:{
+                                    '_token':'{{ @csrf_token() }}',
+                                    'phone':p,
+                                    'email':e,
+                                    'CCCD':c
+                                },
+                                success:function(rp){
+                                    a=rp;
+                                }
+                            })
+                    return a;
+                }
+
                 // auth phone number
                 var authPhone=function(phone){
                     $.ajax({

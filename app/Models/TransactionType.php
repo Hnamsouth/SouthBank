@@ -13,4 +13,7 @@ class TransactionType extends Model
         'name',
         'code'
     ];
+    public function Transactions(){
+        return $this->belongsTo(Transactions::class);
+    }
 }

@@ -45,6 +45,7 @@ form
         bodyTag: "fieldset",
         transitionEffect: "slideLeft",
         onStepChanging: function (event, currentIndex, newIndex) {
+
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex) {
                 return true;
@@ -136,17 +137,15 @@ $(".validation-wizard").steps({
         finish: "Submit",
     },
     onStepChanging: function (event, currentIndex, newIndex) {
-        let checkRequied=(
-            currentIndex > newIndex ||(!(3 === newIndex && Number($("#age-2").val()) < 18) &&
-                (currentIndex < newIndex &&(form.find(".body:eq(" + newIndex + ") label.error").remove(),
+        return (
+            currentIndex > newIndex ||
+            (!(3 === newIndex && Number($("#age-2").val()) < 18) &&
+                (currentIndex < newIndex &&
+                (form.find(".body:eq(" + newIndex + ") label.error").remove(),
                     form.find(".body:eq(" + newIndex + ") .error").removeClass("error")),
-                    (form.validate().settings.ignore = ":disabled,:hidden"),form.valid()))
+                    (form.validate().settings.ignore = ":disabled,:hidden"),
+                    form.valid()))
         );
-        if(checkRequied){ // nếu form đủ giá trị
-        //   =>  xác thực phone number
-
-        }
-        return checkRequied;
     },
     onFinishing: function (event, currentIndex) {
         return (form.validate().settings.ignore = ":disabled"), form.valid();
@@ -158,6 +157,8 @@ $(".validation-wizard").steps({
         );
     },
 });
+
+
     $(".validation-wizard").validate({
         ignore: "input[type=hidden]",
         errorClass: "text-danger",
@@ -176,7 +177,7 @@ $(".validation-wizard").steps({
                 email: !0,
             },
         },
-    });
-//     custome
-//     auth phone number
+        message:{
 
+        }
+    });

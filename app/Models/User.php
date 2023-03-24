@@ -23,6 +23,7 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -44,7 +45,12 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-
+    public function UserInfo(){
+        return $this->hasOne(User_Info::class);
+    }
+    public function UserTransSecret(){
+        return $this->hasOne(UserTransSecret::class);
+    }
 
     public function Cards(){
         return $this->hasMany(Cards::class);
@@ -65,6 +71,12 @@ class User extends Authenticatable implements JWTSubject
         return false;
     }
 
+    public function scopeSearchByUserName($query,$username){
+        if($username && $username !=""){
+            return $query->where('username','like',$username);
+        }
+        return $query;
+    }
 
 
     public function getJWTIdentifier()
