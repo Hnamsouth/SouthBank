@@ -15,17 +15,30 @@ class DepositAccountTable extends Migration
     {
         Schema::create('deposit_account', function (Blueprint $table) {
             $table->id();
+            $table->string('account_number');
             $table->unsignedDecimal('initial_amount',14,6);      // số tiền ban đầu
             $table->unsignedDecimal('current_balance',14,6);     // số dư hiện tại
-            $table->unsignedFloat('interest_rate',2,1);          // lãi suất tiết kiệm
-            $table->unsignedTinyInteger('terms');                           // kỳ hạn
+            $table->unsignedTinyInteger('terms');                           // kỳ hạn mở
+            $table->unsignedInteger('interest_payment_period')->nullable();          // kỳ trar lãi
+            $table->unsignedBigInteger('interest_payment_method_id');          // phương thức trả lãi: đầu kỳ,cuối kì, định kỳ
+
             $table->date('open_date');                                      // ngày mở
-            $table->date('close_date');                                     // ngày mở
+            $table->date('close_date');                                     // ngày tất toán
             $table->unsignedInteger('days');                                // số ngày đã gửi
+            $table->unsignedDecimal('profit',16,4);                                // số ngày đã gửi
+            $table->string('saving_deposit_type')->default('VND');    // loại tiền gửi
+
             $table->unsignedBigInteger('deposit_type_id');                  // loại tài khoản tiết kiệm
-            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('source_account_id');                // tài khoản chuyển tiền mở stk
+            $table->unsignedBigInteger('account_receive_id');               // tk nhận gốc và lãi
+            $table->unsignedBigInteger('settlement_method_id');
+            $table->string('settlement_channel');
+
+            $table->foreign('interest_payment_method_id')->references('id')->on('interest_payment_method');
             $table->foreign('deposit_type_id')->references('id')->on('deposit_type');
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('source_account_id')->references('id')->on('accounts');
+            $table->foreign('account_receive_id')->references('id')->on('accounts');
+            $table->foreign('settlement_method_id')->references('id')->on('settlement_method');
             $table->boolean('status');                                      // trạng thái (đóng- hoạt động)
             $table->timestamps();
         });

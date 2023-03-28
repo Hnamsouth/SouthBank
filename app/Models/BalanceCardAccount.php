@@ -18,5 +18,11 @@ class BalanceCardAccount extends Model
     public function Accounts(){
         return $this->belongsTo(Accounts::class);
     }
+    public function scopeSearch($query,$acc){
+        if($acc && $acc!=''){
+            return $query->where('account_id','=',$acc);
+        }
+        return $query;
+    }
 
 }

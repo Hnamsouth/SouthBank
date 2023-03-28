@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Mail\NewUserCreated;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use \App\Http\Controllers\User\Auth\RegisterController;
 use \App\Http\Controllers\User\Account\UserAccountController;
+use \App\Http\Controllers\User\Account\UserSavingAccController;
 
 
 /*
@@ -35,6 +37,11 @@ Route::get('/', function () {
 Route::get('acc-register/{acc_type?}',[RegisterController::class,'showRegistrationForm'])->name('acc.register');
 Route::post('acc-register',[RegisterController::class,'register']);
 
+Route::get('account-list',function(){
+    $acc=\App\Models\AccountType::all();
+    return view('customer.page.account_list',compact('acc'));
+})->name('account.list');
+
 Route::middleware(['auth:web'])->prefix('/user')->group(function (){
     Route::get('profile', function () { return view('customer.demo');}) ->name('user.profile');
 
@@ -43,19 +50,23 @@ Route::middleware(['auth:web'])->prefix('/user')->group(function (){
         Route::get('detail/{account}',[UserAccountController::class,'showAccountDetails'])->name('user.account.detail');
 
         Route::prefix('transfer')->group(function(){
+        //  account transfer
             Route::get('within-bank',[UserAccountController::class,'showTransferWithinBank'])->name('user.transfer.within-bank');
             Route::post('within-bank',[UserAccountController::class,'handleTransfer']);
+            Route::post('check-amount-transfer',[UserAccountController::class,'CheckAmount_Transfer'])->name('check-amount-transfer');
 
             Route::get('transfer-end/{transId}',[UserAccountController::class,'showTransferEnd'])->name('user.transfer.end');
 
             Route::post('search-acc',[UserAccountController::class,'SearchAccount'])->name('search-acc');
             Route::post('generate-pw',[UserAccountController::class,'GTransPW'])->name('g.t.pw');
             Route::post('check-transfer-pw',[UserAccountController::class,'CheckTransPW'])->name('c.t.pw');
+        // saving account
+            Route::get('saving-list',[UserSavingAccController::class,'showSavingAccList'])->name('user.saving-acc-list');
+            Route::get('open-saving/{deposit_type}',[UserSavingAccController::class,'showFormOpenSavingAcc'])->name('user.open-saving');
+            Route::post('open-saving',[UserSavingAccController::class,'handleOpenSaving'])->name('user.hd-open-saving');
 
-
-            Route::get('outside-bank',[UserAccountController::class,'showTransferOutsideBank'])->name('user.transfer.outside-bank');
-            Route::post('outside-bank',[UserAccountController::class,'showTransferOutsideBank']);
-
+            Route::post('check-amount-saving',[UserSavingAccController::class,'CheckAmount_Saving'])->name('check-amount-saving');
+            Route::post('check-interest-rate',[UserSavingAccController::class,'CheckInterestRate'])->name('check-ir');
         });
     });
 
@@ -84,13 +95,12 @@ Route::get('/api-banks', function(){
     dd($b1['data']);
     return $bank;
 });
-Route::get('account-list',function(){
-   $acc=\App\Models\AccountType::all();
-   return view('customer.page.account_list',compact('acc'));
-});
-Route::get('upfile',function(){ return view('user.uoload_file_demo');})->name('upfile');
+
+Route::get('upfile',function(){
+    dd(Carbon::now()->getTimestamp());
+    return view('user.uoload_file_demo');})->name('upfile');
 Route::post('upfile',function(Request $request){
-    dd($request);
+    dd(Carbon::now()->micro);
     dd($request->file('image'));}
 )->name('upfile');
 

@@ -11,7 +11,6 @@ class Transactions extends Model
     protected $table='transactions_history';
 
     protected $fillable=[
-        'transaction_code',
         'to_number',
         'amount',
         'fees',

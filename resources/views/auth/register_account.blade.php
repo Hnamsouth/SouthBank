@@ -78,6 +78,7 @@
                                             <div class="mb-3">
                                                 <label for="nationality">Nationality</label>
                                                 <select class="form-select  required" id="nationality" name="nationality">
+                                                    <option></option>
                                                     <option value="1">Viet Nam</option>
                                                     <option value="2">American</option>
                                                 </select>
@@ -138,6 +139,7 @@
                                             <div class="mb-3">
                                                 <label for="education_level">Education level</label>
                                                 <select class="form-select  required" id="education_level" name="education_level">
+                                                    <option></option>
                                                     <option value="1">After university</option>
                                                     <option value="2">University</option>
                                                     <option value="2">College</option>
@@ -154,8 +156,9 @@
                                             <div class="mb-3">
                                                 <label for="city">City</label>
                                                 <select class="form-select  required" id="city" name="city">
-                                                    <option value="">Select Result</option>
-                                                    <option value="Selected">Selected</option>
+                                                    <option></option>
+                                                    <option value="Ha Noi">Ha Noi</option>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -163,8 +166,9 @@
                                             <div class="mb-3">
                                                 <label for="district">District</label>
                                                 <select class="form-select  required" id="district" name="district">
-                                                    <option value="">Select Result</option>
-                                                    <option value="Selected">Selected</option>
+                                                    <option></option>
+                                                    <option value="Thanh Tri">Thanh Tri</option>
+                                                    <option value="Hoan Kiem">Hoan Kiem</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -172,8 +176,9 @@
                                             <div class="mb-3">
                                                 <label for="ward">Ward</label>
                                                 <select class="form-select" id="ward" name="ward">
-                                                    <option value="">Select Result</option>
-                                                    <option value="Selected">Selected</option>
+                                                    <option></option>
+                                                    <option value="Ta Thanh Oai">Ta Thanh Oai</option>
+
                                                 </select>
                                             </div>
                                         </div>

@@ -3,6 +3,12 @@
 @section('before-css')
     <link rel="stylesheet" href="../../customer/dist/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+@endsection
+
+@section('after-css')
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 @endsection
 
 @section('main-content')
@@ -25,11 +31,12 @@
                                   <div class="row">
                                       <div class="col-12">
                                           <div class="mb-3">
-                                              <label for="bank">RECIPIENT BANK <span class="text-danger">*</span></label>
+                                              <label for="bank">RECIPIENT BANK <img src="{{$banks[0]['logo']}}" width="20" > <span class="text-danger">*</span></label>
                                               <select class=" form-control" id="bank" name="bank" required style="width: 100%; height: 36px">
-                                                  <option value="{{ $banks[0]['bin']}}">{{$banks[0]['name']}}</option>
+                                                  <option></option>
+                                                  <option value="{{ $banks[0]['bin']}}" >({{ $banks[0]['code'] }}) {{$banks[0]['shortName']}}</option>
                                                   @foreach($banks[1] as $item)
-                                                      <option value="{{ $item->bin }}">({{ $item->code }}) {{$item->shortName}}</option>
+                                                      <option value="{{ $item->bin }}"> ({{ $item->code }}) {{$item->shortName}}</option>
                                                   @endforeach
                                               </select>
                                           </div>
@@ -72,7 +79,8 @@
                                       <div class="col-12">
                                           <div class="mb-3">
                                               <label for="from_account">FROM ACCOUNT <span class="text-danger">*</span></label>
-                                              <select class="select2 form-control required" id="from_account" name="from_account" required style="width: 100%; height: 36px" >
+                                              <select class=" form-control required" id="from_account" name="from_account" required style="width: 100%; height: 36px" >
+                                                  <option></option>
                                                   @foreach($acc as $item)
                                                       <option value="{{$item->account_number }}">{{ $item->account_number."-".$item->AccountType->name.'. '.$item->BalanceCardAccount->balance }}</option>
                                                   @endforeach
@@ -244,7 +252,14 @@
             $.validator.addMethod("checkAccount", function (value, element,params) {
                 return this.optional(element) || params.bank===0;
             }, "Please enter a valid account number.");
-
+            $.validator.addMethod("checkAmount", function (value, element,params) {
+                    return this.optional(element) || params.amount && params.min;
+                },function (params){
+                    let mess=!params.amount?"Insufficient account balance.":'';
+                    mess+=!params.min?"Please enter a value greater than or equal to 5000 .":'';
+                    return mess;
+                }
+            );
             let validator=$(".validation-wizard").validate({
                 ignore: "",
                 errorClass: "text-danger",
@@ -266,6 +281,13 @@
                         required:true,
                         checkAccount:{
                             bank:1
+                        },
+                    },
+                    amount:{
+                        required:true,
+                        checkAmount:{
+                            amount:1,
+                            min:1
                         },
                     }
                 }
@@ -298,6 +320,46 @@
                         'account_number': acc
                     },
                     url: "{{route('search-acc')}}",
+                    success: function (response) {
+                        a=response;
+                    },
+                })
+                return a;
+            }
+
+            let amount=$('#amount');
+            amount.on('change', async ()=>{
+                let data = await  CheckAmount(amount.val(), $('#from_account').val() );
+                if(data==="1"){
+                    validator.settings.rules.amount.checkAmount.amount = true;
+                    validator.settings.rules.amount.checkAmount.min = true;
+                    validator.element("#amount");
+                }else if(data==="2"){
+                    validator.settings.rules.amount.checkAmount.amount = true;
+                    validator.settings.rules.amount.checkAmount.min = false;
+                    validator.element("#amount");
+                }else if(data==="3"){
+                    validator.settings.rules.amount.checkAmount.amount = false;
+                    validator.settings.rules.amount.checkAmount.min = true;
+                    validator.element("#amount");
+                }else {
+                    validator.settings.rules.amount.checkAmount.amount = false;
+                    validator.settings.rules.amount.checkAmount.min = false;
+                    validator.element("#amount")
+                }
+            })
+
+            // check amount
+            async function CheckAmount(am,acc){
+                let a;
+                await $.ajax({
+                    type: 'post',
+                    data: {
+                        '_token': "{{csrf_token()}}",
+                        "amount": am,
+                        'account_number': acc,
+                    },
+                    url: "{{route('check-amount-transfer')}}",
                     success: function (response) {
                         a=response;
                     },

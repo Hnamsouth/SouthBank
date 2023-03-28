@@ -22,6 +22,9 @@ class Accounts extends Model
         }
         return $query;
     }
+    public function DepositAccount(){
+        return $this->hasMany(DepositAccount::class,'source_account_id','id');
+    }
 
     public function User(){ return $this->belongsTo(User::class,'user_id','id');}
 

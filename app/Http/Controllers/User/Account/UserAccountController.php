@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Exception;
+use Throwable;
 
 class UserAccountController extends Controller
 {
@@ -28,13 +29,17 @@ class UserAccountController extends Controller
 
     public function showUserAccounts(){
         $acc=auth()->user()->Accounts;
-        return view('customer.forAuth.user_account_list',compact('acc'));
+//        $deposit_acc=
+
+//       $da= Accounts::with('DepositAccount')->where('id',$acc[0]->id)->get();
+//        dd($da[0]);
+        return view('customer.forAuth.account.user_account_list',compact('acc'));
     }
 
     /**
      * @param Accounts $account
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @show User account detail
      */
     public function showAccountDetails(Accounts $account,Request $request){
         //        get transaction
@@ -44,7 +49,6 @@ class UserAccountController extends Controller
     }
 
      public function showTransferWithinBank(){
-        //        get accounts
          $acc=auth()->user()->Accounts;
         //        get banks
          $banks[]=SouthBank::INFO;
@@ -52,8 +56,17 @@ class UserAccountController extends Controller
         //        dd($banks);
         return view('customer.forAuth.transfer.transfer_within_bank',compact('banks','acc'));
      }
-     public function handleTransfer(Request $request){
 
+    /**
+     * @param Request $request
+     * @method post
+     * @function Handle User Transfer
+     * @return \Illuminate\Http\RedirectResponse
+     */
+     public function handleTransfer(Request $request){
+         /**
+          * @validate
+          */
          $request->validate([
              "bank" => ["required","numeric"],
               "account_number" =>["required",function ($attribute, $value, $fail) use ($request) {
@@ -71,7 +84,7 @@ class UserAccountController extends Controller
              "from_account:exists"=>"Transfer account does not exist.",
              "trans_password:exists"=>"invalid transfer password.",
          ]);
-//        dd($request);
+
         $from_id=Accounts::Search($request->get('from_account'))->first()->id;
         $to_id=Accounts::Search($request->get('account_number'))->first()->id;
         $amount=$request->get('amount');
@@ -79,10 +92,9 @@ class UserAccountController extends Controller
         BalanceCardAccount::where('account_id',$to_id)->increment('balance',$amount);
         BalanceCardAccount::where('account_id',$from_id)->decrement('balance',$amount);
 
-        $transId=random_int(121212,989898);
         $bin=$request->get('bank');
-        Transactions::create([
-            'transaction_code'=>$transId,
+
+        $trans_rc=Transactions::create([
             'to_number'=>$request->get('account_number'),
             'amount'=>$request->get('amount'),
             'fees'=>0,
@@ -94,20 +106,16 @@ class UserAccountController extends Controller
             'account_holder_name'=>$request->get('account_holder_name'),
         ]);
 
-        return redirect()->route('user.transfer.end',['transId'=>$transId]);
+        return redirect()->route('user.transfer.end',['transId'=>$trans_rc->id]);
 
      }
-    public function showTransferOutsideBank(){
-//        get banks list
-        $banks=array();
-        $banks[]=SouthBank::INFO;
-        $banks[]=Http::get('https://api.vietqr.io/v2/banks')->json()['data'];
-//        dd($bank);
-    }
-
+    /**
+     * @param $transId
+     * @method get
+     *
+     */
     protected function showTransferEnd($transId){
-       $trans= Transactions::where('transaction_code','=',$transId)->first();
-
+       $trans= Transactions::where('id',$transId)->first();
        return view('customer.forAuth.transfer.transfer_finish',compact('trans'));
 
     }
@@ -138,34 +146,64 @@ class UserAccountController extends Controller
                     ]
                 ]);
                 return $response;
-            }catch (\Exception $e){}
+            }catch (Throwable $e){report($e);}
             return 1;
         }
     }
+
+    /**
+     * @param Request $request
+     * @return int
+     * @throws \Exception
+     * @function Generate transfer password
+     */
     protected function GTransPW(Request $request){
         try {
             $transpw=random_int(123000,989898);
             $user=auth()->user();
-//            $user_trans=UserTransSecret::where('user_id','=',$user->id)->first();
-//            if($user_trans->expires->greaterThan(now())){
-//                return 3;
-//            }
             UserTransSecret::updateOrCreate([
-                'trans_password'=>$transpw,
                 'user_id'=>$user->id,
-                'expires'=>Carbon::now()->addMinutes(1),
+            ],[
+                'trans_password'=>$transpw,
+                'expires'=>Carbon::now()->addMinutes(3),
             ]);
 
             Mail::to($user->email)->send(new VerifyEmail($transpw));
             return 0;
-        }catch (Exception $e){}
+        }catch (Throwable $e){report($e);}
         return 1;
     }
+
+    /**
+     * @param Request $request
+     * @return int
+     * @function Check Transfer password
+     */
     protected function CheckTransPW(Request $request){
         try {
            $uTrans= UserTransSecret::where('trans_password','=',$request->get('transfer_pw'))->first();
-            return isset($uTrans->id) ? 0 : 1;
-        }catch (Exception $e){}
+            return isset($uTrans->user_id) ? 0 : 1;
+        }catch (Throwable $e){report($e);}
         return 1;
+    }
+
+    public function CheckAmount_Transfer(Request $request){
+        try {
+           $bl= BalanceCardAccount::Search(Accounts::Search($request->get('account_number'))->first()->id)->first();
+           $am=$request->get('amount');
+            $a=$bl->balance > $am;
+            $b= $am >= 5000;
+            if($a && $b){
+                return 1;
+            }else if($a && !$b){
+                return 2;
+            }else if(!$a && $b){
+                return 3;
+            }else {
+                return 0;
+            }
+
+        }catch (Throwable $e){ report($e);return($e);}
+
     }
 }

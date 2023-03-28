@@ -52,10 +52,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-//            xu ly khi vuot qua so lan cho phep: update user status and send mail
 
+//            xu ly khi vuot qua so lan cho phep: update user status and send mail
         if (method_exists($this, 'hasTooManyLoginAttempts')&& $this->hasTooManyLoginAttempts($request)) { //)
                 $this->fireLockoutEvent($request);
+                User::where('username','=',$request->username)->update(['status'=>0]);
                 return $this->sendLockoutResponse($request,$this->MESS_ERR_MAX_ATTEMPTS);
         }
 

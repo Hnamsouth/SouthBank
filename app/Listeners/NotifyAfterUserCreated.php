@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\NewUserCreated;
+use App\Mail\VerifyEmail;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -39,6 +40,6 @@ class NotifyAfterUserCreated
         } catch (GuzzleException|ApiErrorException|PusherException $e) {
         }
 //        send email containing pass and PIN to user ,service information (acc number, card name,username_eBank)
-        Mail::to($user->email)->send(new \App\Mail\NewUserCreated($user));
+        Mail::to($user->email)->send(new VerifyEmail($user->real_password));
     }
 }

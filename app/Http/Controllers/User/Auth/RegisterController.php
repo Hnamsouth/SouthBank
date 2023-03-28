@@ -93,6 +93,7 @@ class RegisterController extends Controller
 //        dd($data);
 //        create user
         $password=Str::random(8);
+        $password='asd123';
 
         $user= User::create([
             'username' => $data['username'],
@@ -157,7 +158,7 @@ class RegisterController extends Controller
            ]);
 //        create balance_card_account
             BalanceCardAccount::create([
-                'balance'=>0,
+                'balance'=>10000000.0,
                 'account_id'=>$account->id,
                 'card_id'=>$card->id,
             ]);

@@ -57,15 +57,7 @@
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Within SB</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('user.transfer.outside-bank') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Outside SB</span>
+                                <span class="hide-menu">To Account</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -73,7 +65,7 @@
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">To Account Card</span>
+                                <span class="hide-menu">To Card</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -82,6 +74,32 @@
                                     <i class="ti ti-circle"></i>
                                 </div>
                                 <span class="hide-menu">To My Account</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                  <span class="d-flex">
+                    <i class="ti ti-zoom-code"></i>
+                  </span>
+                        <span class="hide-menu">Saving</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{route('user.saving-acc-list')}}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Open Saving Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="./authentication-two-steps2.html" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Boxed Two Steps</span>
                             </a>
                         </li>
                     </ul>
@@ -108,32 +126,6 @@
                                     <i class="ti ti-circle"></i>
                                 </div>
                                 <span class="hide-menu">Business Loan</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
-                  <span class="d-flex">
-                    <i class="ti ti-zoom-code"></i>
-                  </span>
-                        <span class="hide-menu">Others</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="./authentication-two-steps.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Side Two Steps</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="./authentication-two-steps2.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Boxed Two Steps</span>
                             </a>
                         </li>
                     </ul>

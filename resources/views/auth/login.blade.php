@@ -57,7 +57,7 @@
                                     <button class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign In</button>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-medium">New to Modernize?</p>
-                                        <a class="text-primary fw-medium ms-2" href="{{ route('register') }}">Create an account</a>
+                                        <a class="text-primary fw-medium ms-2" href="{{ route('account.list') }}">Create an account</a>
                                     </div>
                                 </form>
                             </div>

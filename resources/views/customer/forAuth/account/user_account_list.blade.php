@@ -34,7 +34,7 @@
                                                 </a>
                                                 <div class="col-sm-4 col-md-6 text-end">
                                                     <div class="">
-                                                        <input type="password" class="form-bl text-end" id="balance" value="{{ $item->BalanceCardAccount->balance}}" disabled> <a class="ms-2" type="button" href="#" onclick="showBalance(true)"><i class="ti ti-aperture"></i></a>
+                                                        <input type="password" class="form-bl text-end" id="balance" value="{{ $item->BalanceCardAccount->balance}}" disabled> <a class="ms-2" type="button" onclick="showBalance(true)"><i class="ti ti-aperture"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -44,7 +44,42 @@
                         </div>
                     </div>
                 </div>
+                @if(isset($item->DepositAccount))
+                   @foreach($item->DepositAccount as $da)
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between m-2">
+                                <h4>Deposit Account</h4>
+                            </div>
+                            <div class="card card-hover">
+                                <div class="row p-4">
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">ACCOUNT NUMBER:  </span> <span class="fs-3 text-bg-light-gray">{{$da->account_number}}</span></div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">PROFIT:  </span> <span class="fs-3 text-bg-light-gray">{{$da->profit}}</span></div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">DAYS:  </span> <span class="fs-3 text-bg-light-gray">{{$da->days}}</span></div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">METHOD OF INTEREST PAYMENT:  </span> <span class="fs-3 text-bg-light-gray">{{$da->interest_payment_period}}</span></div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">CLOSE DATE:  </span> <span class="fs-3 text-bg-light-gray">{{$da->close_date}}</span></div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4">
+                                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">TERMS:  </span> <span class="fs-3 text-bg-light-gray">{{$da->terms}}</span></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                   @endforeach
+                @endif
             @endforeach
+            <div id="deposit">
+
+            </div>
         </div>
     </section>
     </div>

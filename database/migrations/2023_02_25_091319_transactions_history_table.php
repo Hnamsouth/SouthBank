@@ -15,11 +15,10 @@ class TransactionsHistoryTable extends Migration
     {
         Schema::create('transactions_history', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('transaction_code')->unique();
             $table->string('to_number');
             $table->string('from_number'); //
-            $table->string('bank_name'); //
-            $table->string('account_name'); //
+            $table->string('bank_name')->nullable(); //
+            $table->string('account_holder_name'); //
             $table->unsignedDecimal('amount',12,3);
             $table->unsignedBigInteger('transaction_type_id');
             $table->unsignedDecimal('fees',12,4)->nullable();

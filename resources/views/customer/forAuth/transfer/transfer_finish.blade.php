@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">AMOUNT:  </span> <span class="fs-3 text-bg-light-gray" id="info_amount">{{ $trans->amount }}</span></div>
-                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">Transactions Code:  </span> <span class="fs-3 text-bg-light-gray" id="info_amount">{{ $trans->transaction_code }}</span></div>
+                        <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">Transactions Code:  </span> <span class="fs-3 text-bg-light-gray" id="info_amount">{{ $trans->id }}</span></div>
                         <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">FROM ACCOUNT:  </span> <span class="fs-3 text-bg-light-gray" id="info_from_acc">{{ $trans->from_number }}</span></div>
                         <hr/>
                         <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">TO ACCOUNT:  </span> <span class="fs-3 text-bg-light-gray" id="info_to_acc">{{ $trans->to_number }}</span></div>
