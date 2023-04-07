@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +34,20 @@ Route::group([
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);
     Route::get('/user-info', [AuthController::class, 'getUserInfo']);
 });
+
+Route::post('app-login',function(Request $request){
+
+    $validate=$request->validate([
+       'username'=>['required'],
+       'password'=>['required'],
+    ]);
+
+    $user=\App\Models\User::where('username',$request->get('username'))->first();
+    if(Hash::check($request->get('password'),$user->password)){
+        return response()->json(['token'=>$user->login_token]);
+    }
+    return response()->json(['data'=>false]);
+
+
+
+})->name('api.login');

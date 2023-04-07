@@ -54,6 +54,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             @foreach($trans as $index=>$item)
                                     <tr>
                                         <td><p class="mb-0 fw-normal fs-4"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{$item->created_at}}</font></font></p></td>

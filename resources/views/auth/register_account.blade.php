@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="nationality">Nationality</label>
+                                                <label for="nationality">Nationality<span class="text-danger">(*)</span></label>
                                                 <select class="form-select  required" id="nationality" name="nationality">
                                                     <option></option>
                                                     <option value="1">Viet Nam</option>
@@ -89,7 +89,19 @@
                                 <!-- Step 2 -->
                                 <h6>Take CCCD/CMND pictrue and video</h6>
                                 <section>
-                                    <div class="row text-center justify-content-center">
+{{--                                    <div class="">--}}
+{{--                                        <div class="col-md-4">--}}
+{{--                                            <div class="mb-3">--}}
+{{--                                                <label for="CMND_CCCD_IMG_BEFORE">--}}
+{{--                                                    <button type="button" class="btn shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="Webcam(0)">--}}
+{{--                                                        <img src="https://img.icons8.com/stickers/256/gender-neutral-user.png" width="120" >--}}
+{{--                                                    </button>--}}
+{{--                                                </label>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+                                    <div class="row text-center justify-content-center " id="step2_2">
                                         <!-- img decode form base64 -->
                                         <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
                                         <div class="col-md-4">
@@ -270,7 +282,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="CloseWebcam()"></button>
             </div>
             <div class="modal-body text-center">
-                <video id="video" width="720" height="560" autoplay muted></video>
+                <video id="video" width="560" height="560" autoplay muted></video>
                 <div class="mt-3">
                     <button type="button" class="btn btn-primary" id="click" data-bs-dismiss="modal" aria-label="Close">Capture</button>
                 </div>
@@ -291,7 +303,6 @@
 
             <script src="../../customer/dist/libs/jquery-steps/build/jquery.steps.min.js"></script>
             <script src="../../customer/dist/libs/jquery-validation/dist/jquery.validate.min.js"></script>
-            {{--    <script src="../../customer/dist/js/forms/form-wizard.js"></script>--}}
 
             <script>
                 var form = $(".validation-wizard").show();
@@ -305,20 +316,17 @@
                         finish: "Register",
                     },
                     onStepChanging: function (event, currentIndex, newIndex) {
-                        console.log("asda   "+currentIndex,newIndex)
                         let checkRequied=(
                             currentIndex > newIndex ||(!(3 === newIndex && Number($("#age-2").val()) < 18) &&
                                 (currentIndex < newIndex &&(form.find(".body:eq(" + newIndex + ") label.error").remove(),
                                     form.find(".body:eq(" + newIndex + ") .error").removeClass("error")),
                                     (form.validate().settings.ignore = ":disabled,:hidden"),form.valid()))
                         );
-                        if(checkRequied){ // nếu form đủ giá trị
+                        if(checkRequied && currentIndex===1){ // nếu form đủ giá trị
                             //   =>  xác thực phone number
-                            if(currentIndex===1){
-                                let phone=document.getElementById('phone').value;
-                                document.getElementById('show_username').setAttribute('value',phone);
-                                document.getElementById('hidden_username').setAttribute('value',phone);
-                            }
+                            let phone=document.getElementById('phone').value;
+                            document.getElementById('show_username').setAttribute('value',phone);
+                            document.getElementById('hidden_username').setAttribute('value',phone);
                         }
                         return checkRequied;
                     },
@@ -445,5 +453,8 @@
                     })
                 }
             </script>
-            <script src="../../customer/dist/js/forms/img-capture.js"></script>
+
+
+            <script src="../../customer/dist/js/face-api/face-api.min.js" defer></script>
+            <script src="../../customer/dist/js/forms/img-capture.js" defer></script>
 @endsection

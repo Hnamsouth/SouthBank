@@ -49,6 +49,10 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'jwtAuth'=>[
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ]
     ],
 
     /*

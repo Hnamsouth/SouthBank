@@ -5,6 +5,49 @@
      $qr =QrCode::size(250)->generate($token); // generate QR code with the token
 @endphp
 
+
+@section('after-js')
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.7.min.js"></script>
+
+    <script>
+        // Khởi tạo đối tượng PubNub với các thông số cấu hình
+        var pubnub = new PubNub({
+            publishKey: 'pub-c-cb039d69-9983-4bb9-841e-9cff92581900',
+            subscribeKey: 'sub-c-2e353e34-0625-454d-839d-857d622da1a7'
+        });
+
+        // Đăng ký sự kiện nhận tin nhắn trên kênh 'my_channel'
+        pubnub.addListener({
+            message: function(response) {
+                confirm(response)
+                console.log(response.message.token);
+                if(response.message.login_token){
+                    callAjax(response.message.login_token);
+                }
+
+            }
+        });
+        pubnub.subscribe({
+            channels: ['msg']
+        });
+
+        function callAjax(token){
+            $.ajax({
+                url:'{{route('app.login')}}',
+                type:'post',
+                data:{
+                  '_token':"{{csrf_token()}}",
+                  'login_token':token,
+                },
+                success: (response)=>{
+                    console.log(response);
+                    window.location.replace(response.url);
+                }
+            })
+        }
+    </script>
+@endsection
+
 @section('main-content')
     <div class="position-relative overflow-hidden radial-gradient min-vh-100">
         <div class="position-relative z-index-5">
@@ -18,6 +61,7 @@
                     {{$qr}}
                     </div>
                 </div>
+                <div class="hide" id="qr_code">{{$token}}</div>
                 <div class="col-lg-6 col-xl-4 col-xxl-4">
                     <div class="card mb-0 shadow-none rounded-0 min-vh-100 h-100">
                         <div class="d-flex align-items-center w-100 h-100">
@@ -52,7 +96,7 @@
 {{--                                                Remeber this Device--}}
 {{--                                            </label>--}}
 {{--                                        </div>--}}
-                                        <a class="text-primary fw-medium" href="./authentication-forgot-password.html">Forgot Password ?</a>
+                                        <a class="text-primary fw-medium" href="{{route('password.request')}}">Forgot Password ?</a>
                                     </div>
                                     <button class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign In</button>
                                     <div class="d-flex align-items-center justify-content-center">

@@ -83,7 +83,7 @@
                   <span class="d-flex">
                     <i class="ti ti-zoom-code"></i>
                   </span>
-                        <span class="hide-menu">Saving</span>
+                        <span class="hide-menu">Saving </span>
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
@@ -95,11 +95,11 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="./authentication-two-steps2.html" class="sidebar-link">
+                            <a href="{{route('settle-term-dep')}}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Boxed Two Steps</span>
+                                <span class="hide-menu"> Settle Term Deposit</span>
                             </a>
                         </li>
                     </ul>

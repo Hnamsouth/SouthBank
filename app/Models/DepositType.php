@@ -25,4 +25,8 @@ DepositType extends Model
     public function InterestPaymentMethod(){
         return $this->belongsToMany(InterestPaymentMethod::class,'deposit_type_ipm');
     }
+
+    public function SavingInterestRate(){
+        return $this->hasMany(SavingInterestRate::class);
+    }
 }

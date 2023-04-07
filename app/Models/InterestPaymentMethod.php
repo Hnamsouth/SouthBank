@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class InterestPaymentMethod extends Model
 {
+
+    const INTEREST_PAID_PERIODICALLY=1;
+    const PREPAID_INTEREST=2;
+    const INTEREST_PAID_AT_MATURITY=3;
     use HasFactory;
     protected $table='interest_payment_method';
     protected $fillable=[

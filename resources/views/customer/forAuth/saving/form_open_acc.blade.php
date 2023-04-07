@@ -17,8 +17,8 @@
             <div class="">
                 <div class="card-body wizard-content">
                     <h4 class="card-title">Transfer to Account</h4>
-                    <form action="{{route('user.hd-open-saving')}}" class="validation-wizard wizard-circle mt-5" method="post">
-                        @csrf
+                    <form class="validation-wizard wizard-circle mt-5" >
+
                         <!-- Step 1 -->
                         <h6>Step 1</h6>
                         <section>
@@ -53,7 +53,7 @@
                                         <div class="col-12">
                                             <div class="mb-4">
                                                 <label for="source_account">SOURCE ACCOUNT <span class="text-danger">*</span></label>
-                                                <select class="form-select required" id="source_account" name="source_account" required style="width: 100%; height: 36px" >
+                                                <select class="form-select required" id="source_account" name="source_account" required style="width: 100%; height: 36px"  disabled>
                                                     <option></option>
                                                     @foreach($acc as $item)
                                                         <option value="{{$item->account_number }}">{{ $item->account_number."-".$item->AccountType->name.'. '.$item->BalanceCardAccount->balance }}</option>
@@ -65,14 +65,14 @@
                                         <div class="col-md-8">
                                             <div class="mb-4">
                                                 <label for="amount">AMOUNT <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control required" min="{{$dt->min_amount*1000000}}" name="amount" id="amount" required>
+                                                <input type="number" class="form-control required" min="{{$dt->min_amount*1000000}}" name="amount" id="amount" required disabled>
                                             </div>
                                         </div>
                                         @error('amount') <p class="text-danger ms-2">{{$message}} </p> @enderror
                                         <div class="col-md-4">
                                             <div class="mb-4">
                                                 <label for="currency"> CURRENCY <span class="text-danger">*</span></label>
-                                                <select name="currency" id="currency" class="form-select required" required >
+                                                <select name="currency" id="currency" class="form-select required" required disabled>
                                                     <option value="VND">VND</option>
                                                 </select>
                                             </div>
@@ -82,7 +82,7 @@
                                         <div class="col-md-8">
                                             <div class="mb-4">
                                                 <label for="terms">TERM <span class="text-danger">*</span></label>
-                                                <select class="form-select required" name="terms" id="terms" >
+                                                <select class="form-select required" name="terms" id="terms" disabled>
 
                                                 </select>
                                             </div>
@@ -106,17 +106,17 @@
                                                 <input type="date" class="form-control"  id="end_date" disabled>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-4">
-                                                <label for="settlement_channel">SETTLEMENT CHANEL<span class="text-danger">*</span></label>
-                                                <select class="form-select required" id="settlement_channel" name="settlement_channel" required style="width: 100%; height: 36px" >
-                                                    <option></option>
-                                                  <option value="online">Online settlement</option>
-                                                  <option value="online">On-counter settlement</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        @error('description') <p class="text-danger ms-2">{{$message}} </p> @enderror
+{{--                                        <div class="col-md-6">--}}
+{{--                                            <div class="mb-4">--}}
+{{--                                                <label for="settlement_channel">SETTLEMENT CHANEL<span class="text-danger">*</span></label>--}}
+{{--                                                <select class="form-select required" id="settlement_channel" name="settlement_channel" required style="width: 100%; height: 36px" >--}}
+{{--                                                    <option></option>--}}
+{{--                                                  <option value="online">Online settlement</option>--}}
+{{--                                                  <option value="online">On-counter settlement</option>--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        @error('description') <p class="text-danger ms-2">{{$message}} </p> @enderror--}}
                                         <div class="col-md-6">
                                             <div class="mb-4">
                                                 <label for="account_receive">CURRENT ACCOUNT TO SETTLEMENT <span class="text-danger">*</span></label>
@@ -144,8 +144,10 @@
 
                                         <div class="col-12">
                                             <div class="mb-4">
-                                                <label for="beneficiary">ADD TO BENEFICIARY</label>
-                                                <input type="checkbox" name="beneficiary" id="beneficiary" class="form-check-input required">
+                                                <input type="checkbox" name="conditions" id="conditions" class="form-check-input required">
+                                                <label for="conditions">
+                                                    I have read, understand and agree to the terms and conditions for opening an term deposit.</label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +155,7 @@
                             </div>
                         </section>
                         <!-- Step 2 -->
-                        <h6>Step 2</h6>
+                        <h6>2. Review</h6>
                         <section>
                             <div class="card">
                                 <div class="card-header text-center">
@@ -165,11 +167,11 @@
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">SOURCE ACCOUNT:  </span> <span class="fs-3 text-bg-light-gray" id="info_source_account"></span></div>
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">AMOUNT:  </span> <span class="fs-3 text-bg-light-gray" id="info_amount"></span></div>
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">TERM:  </span> <span class="fs-3 text-bg-light-gray" id="info_terms"></span></div>
-                                            <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">EFFECTIVE DATE:  </span> <span class="fs-3 text-bg-light-gray" id="info_start_date"></span></div>
+{{--                                            <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">EFFECTIVE DATE:  </span> <span class="fs-3 text-bg-light-gray" id="info_start_date"></span></div>--}}
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">STIMATED DUE DATE:  </span> <span class="fs-3 text-bg-light-gray" id="info_end_date"></span></div>
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">INTEREST RATE:  </span> <span class="fs-3 text-bg-light-gray" id="info_interest_rate"></span></div>
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">PROVISIONAL INTEREST:  </span> <span class="fs-3 text-bg-light-gray" id="info_provisional_interest"></span></div>
-                                            <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">SETTLEMENT CHANEL:  </span> <span class="fs-3 text-bg-light-gray" id="info_settlement_channel"></span></div>
+{{--                                            <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">SETTLEMENT CHANEL:  </span> <span class="fs-3 text-bg-light-gray" id="info_settlement_channel"></span></div>--}}
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">AT MATURED DATE, CHOOSE:  </span> <span class="fs-3 text-bg-light-gray" id="info_settlement_method"></span></div>
                                             <div class="mb-4"> <span class="fs-3 fw-semibold text-cl-gray me-2">CURRENT ACCOUNT TO SETTLEMENT:  </span> <span class="fs-3 text-bg-light-gray" id="info_account_settlement"></span></div>
                                         </div>
@@ -187,10 +189,10 @@
                                             <input type="number" class="form-control ip-code" data-index="6" maxlength="1">
                                         </div>
                                     </div>
-                                    <p class="text-danger hide" id="mess-err-trans">Transfer password incorrect</p>
+                                    <p class="text-danger" id="mess-err-trans"></p>
                                     @error('trans_password') <p class="text-danger ms-2">{{$message}} </p> @enderror
                                     <input type="hidden" name="trans_password" id="trans_password">
-                                    <input type="hidden" name="deposit_type" value="{{$dt->id}}">
+                                    <input type="hidden" name="deposit_type" id="deposit_type" value="{{$dt->id}}">
                                     <div class="d-flex align-items-center">
                                         <p class="fs-4 mb-0 text-dark">Get the code?</p>
                                         <a id="sendCode" class="btn font-medium rounded-pill px-4 text-primary" >
@@ -203,12 +205,43 @@
                                 </div>
                             </div>
                         </section>
+                        <!-- Step 3 -->
+                        <h6>3.Finish</h6>
+                        <section>
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h3>Open Saving </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <div class="p-2">
+                                            <i class=" ms-2 ti ti-send ms-1 fs-4"></i>
+                                        </div>
+                                        <h4 >Successfully opened a savings account</h4>
+                                    </div>
+                                    <div class="mt-4 text-center hide" id="finishF">
+                                        <a href="{{route('user.account.list')}}" type="button" class="btn font-medium rounded-pill px-4  btn-light">
+                                            <div class="d-flex align-items-center">
+                                                <i class="ti ti-send ms-1 fs-4"></i>
+                                                Go to Account List
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </form>
-                    <div class="mt-4 text-center ">
-                        <a id="submit" type="button" class="btn font-medium rounded-pill px-4 btn-primary hide">
+                    <div class="mt-4 text-center " id="actionF">
+                        <a id="previous" type="button" class="btn font-medium rounded-pill px-4 btn-light ">
                             <div class="d-flex align-items-center">
-                                <i class="ti ti-send ms-1 fs-4"></i>
-                                Submit
+                                <i class="me-2 ti ti-send ms-1 fs-4"></i>
+                                Previous
+                            </div>
+                        </a>
+                        <a id="next" type="button" class="btn font-medium rounded-pill px-4 btn-default ">
+                            <div class="d-flex align-items-center">
+                                Next
+                                <i class=" ms-2 ti ti-send ms-1 fs-4"></i>
                             </div>
                         </a>
                     </div>
@@ -220,13 +253,13 @@
 
     </div>
     <div>
-        @endsection
+@endsection
 
-        @section('after-js')
+@section('after-js')
             <!-- current page js files -->
-            <script src="../../customer/dist/libs/select2/dist/js/select2.full.min.js"></script>
-            <script src="../../customer/dist/libs/select2/dist/js/select2.min.js"></script>
-            <script src="../../customer/dist/js/forms/select2.init.js"></script>
+{{--            <script src="../../customer/dist/libs/select2/dist/js/select2.full.min.js"></script>--}}
+{{--            <script src="../../customer/dist/libs/select2/dist/js/select2.min.js"></script>--}}
+{{--            <script src="../../customer/dist/js/forms/select2.init.js"></script>--}}
 
             <script src="../../customer/dist/libs/jquery-steps/build/jquery.steps.min.js"></script>
             <script src="../../customer/dist/libs/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -236,10 +269,14 @@
             <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 
-            <script>
+   <script>
                 $(document).ready(function(){
                     // form validate
                     var form = $(".validation-wizard").show();
+                    let next=$('#next');
+                    let prev=$('#previous');
+                    let actionF=$('#actionF');
+                    let finishF=$('#finishF');
                     $(".validation-wizard").steps({
                         headerTag: "h6",
                         bodyTag: "section",
@@ -248,24 +285,29 @@
                         labels: {
                             finish: "Submit",
                         },
+                        enablePagination:false ,
+                        forceMoveForward:true,
+                        enableCancelButton:true,
+                        onInit:()=>{
+                          prev.hide();
+                        },
                         onStepChanging:  function  (event, currentIndex, newIndex) {
-                            if(currentIndex < newIndex && currentIndex===0){ // forward
-                                GetSet();
-                                $('#submit').show();
-                            }
-                            if(currentIndex > newIndex){
-                                $('#submit').hide();
-                            }
-                            return (
-                                currentIndex > newIndex ||
+                            let check =( currentIndex > newIndex ||
                                 (!(3 === newIndex && Number($("#age-2").val()) < 18) &&
                                     (currentIndex < newIndex &&
                                     (form.find(".body:eq(" + newIndex + ") label.error").remove(),
                                         form.find(".body:eq(" + newIndex + ") .error").removeClass("error")),
                                         (form.validate().settings.ignore = ":disabled,:hidden"),
-                                        form.valid()))
-                            );
+                                        form.valid())));
 
+                            if(check && currentIndex===0){ // forward
+                                GetSet();
+                                $('#submit').show();
+                            }
+                            if(currentIndex===1){
+                                $('#submit').hide();
+                            }
+                            return check;
                         },
                         onFinishing: function (event, currentIndex) {
                             // show transfer info
@@ -279,8 +321,8 @@
                         },
                     });
                     $.validator.addMethod("checkAmount", function (value, element,params) {
-                        return this.optional(element) || params.amount && params.min;
-                    },function (params){
+                            return this.optional(element) || params.amount && params.min;
+                        },function (params){
                             let mess=!params.amount?"Insufficient account balance.":'';
                             mess+=!params.min?"Please enter a value greater than or equal to {{$dt->min_amount*1000000}}.":'';
                             return mess;
@@ -312,6 +354,72 @@
                             }
                         }
                     });
+                    // action
+                    next.on('click',async ()=>{
+                        let index=parseInt(form.steps('getCurrentIndex'));
+                        if(index===1){
+                            let tpw=$('#trans_password').val();
+                            if(tpw!==''){
+                                let ctp = parseInt( await checkTransPw(tpw));
+                                console.log(ctp);
+                                if (ctp === 1) {
+                                    $('#mess-err-trans').text("");
+                                    console.log(ctp);
+                                    let stm=await OpenSavingAcc();
+                                    if(stm.status===true){
+                                        form.steps('next');
+                                        actionF.hide();
+                                        finishF.show();
+                                    }else{
+                                        console.log(stm.status)
+                                        alert(stm.status);
+                                    }
+                                } else if (ctp === 0) {
+                                    $('#mess-err-trans').text("Transfer password incorrect.");
+                                } else if (ctp === 2) {
+                                    $('#mess-err-trans').text("Transaction password has expired.");
+                                }
+                            }else{
+                                $('#mess-err-trans').text("Transaction password is required..");
+                            }
+                        }else{
+                            let a = form.steps('next');
+                            if(a===true){
+                                prev.show();
+                                sendcode();
+                            }
+                        }
+                    })
+                    prev.on('click',()=>{
+                        let index=form.steps('getCurrentIndex');
+                        index===1?prev.hide():null;
+                        form.steps('previous')
+                    })
+                    // hanlde open acc
+                    async function OpenSavingAcc(){
+                        let a;
+                        await $.ajax({
+                            url:'{{route('user.hd-open-saving')}}',
+                            type:'post',
+                            data:{
+                                '_token':'{{csrf_token()}}',
+                                "interest_payment_method":method.val(),
+                                "source_account":s_Acc.val(),
+                                "amount":amount.val(),
+                                "terms":term.val(),
+                                "account_receive":$('#account_receive').val(),
+                                "settlement_method":$('#settlement_method').val(),
+                                "trans_password":$('#trans_password').val(),
+                                "conditions":$('#conditions').val(),
+                                "deposit_type":$('#deposit_type').val(),
+                            },success:(response)=>{
+                                console.log(response);
+                                a=response;
+                            }
+                        })
+                        return a;
+                    }
+
                     //
                     let amount=$('#amount');
                     amount.on('change', async ()=>{
@@ -355,9 +463,29 @@
                     }
                     // set terms
                     let method=$('#interest_payment_method');
+                    let s_Acc=$('#source_account');
                     method.on('change',()=>{
-                        setTerms(method.val())
+                        if(method.val()!==''){
+                            $('#source_account').attr('disabled',false);
+                            term.attr('disabled',false);
+                            setTerms(method.val())
+                        }else{
+                            s_Acc.val('').change();
+                            term.val('');
+                            s_Acc.attr('disabled',true);
+                            term.attr('disabled',true);
+                        }
+
                     });
+                    s_Acc.on('change',()=>{
+                        if(s_Acc.val()!==''){
+                            amount.attr('disabled',false);
+                        }else{
+                            amount.val('');
+                            amount.attr('disabled',true);
+                        }
+                    })
+
                     //
                     let term=$('#terms');
                     function setTerms(t){
@@ -411,11 +539,10 @@
                     }
                     // get & set steps 2
                     function GetSet(){
-                        console.log($('input[name="start_date"]').prop("value"));
                         $('#info_source_account').text($('select[name="source_account"]').val());
                         $('#info_amount').text($('input[name="amount"]').val());
                         $('#info_terms').text($('select[name="terms"]').val());
-                        $('#info_start_date').text(s_date);
+                        // $('#info_start_date').text(s_date);
                         $('#info_end_date').text(e_date);
                         $('#info_interest_rate').text(i_rate+"%/year");
                         $('#info_provisional_interest').text(1000);
@@ -443,6 +570,9 @@
                     // send trans pw to emal
                     let s=$('#sendCode');
                     s.on('click',()=>{
+                        sendcode();
+                    });
+                    function sendcode(){
                         $.ajax({
                             type: 'post',
                             data: {
@@ -459,7 +589,7 @@
                                 }).showToast();
                             }
                         })
-                    });
+                    }
                     // submit
                     let sm=$('#submit');
                     sm.on('click',async ()=>{
@@ -470,17 +600,17 @@
                         }
                     });
                     // check transfer pw
-                    async function checkTransPw(){
+                    async function checkTransPw(tpw){
                         let a;
                         await $.ajax({
                             type: 'post',
                             data: {
-                                '_token': "{{csrf_token()}}",
-                                'transfer_pw':$('#trans_password').val()
+                                '_token': "{{ csrf_token()}}",
+                                'transfer_pw':tpw
                             },
                             url: "{{route('c.t.pw')}}",
                             success: function(response) {
-                                a=response==="0";
+                                a=response.status;
                             },
                         });
                         return a;

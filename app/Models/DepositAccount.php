@@ -27,21 +27,35 @@ class DepositAccount extends Model
         'status',
         'settlement_method_id',
         'settlement_channel',
+        'user_id'
     ];
 
     public function DepositType(){
-        return $this->hasOne(DepositType::class);
+        return $this->hasOne(DepositType::class,'id','deposit_type_id');
     }
     public function SourceAccount(){
         return $this->hasOne(Accounts::class,'source_account_id','id');
     }
     public function AccountReceive(){
-        return $this->hasOne(Accounts::class,'account_receive_id','id');
+        return $this->hasOne(Accounts::class,'id','account_receive_id');
     }
     public function SettlementMethod(){
         return $this->hasOne(SettlementMethod::class);
     }
     public function Accounts(){
         return $this->belongsTo(Accounts::class);
+    }
+
+    public function Users(){
+        return $this->belongsTo(User::class);
+    }
+
+//
+
+    public function scopeSearch($query,$acc){
+        if($acc && $acc!=''){
+            return $query->where('account_number','=',$acc);
+        }
+        return $query;
     }
 }

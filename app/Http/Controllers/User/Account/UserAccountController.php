@@ -11,6 +11,7 @@ use App\Models\SouthBank;
 use App\Models\Transactions;
 use App\Models\UserTransSecret;
 use App\Rules\AvailableBalance;
+use App\Rules\TransPassword;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,7 @@ class UserAccountController extends Controller
     }
 
     public function showUserAccounts(){
+//        dd(auth()->user()->getAuthIdentifier());
         $acc=auth()->user()->Accounts;
 //        $deposit_acc=
 
@@ -43,7 +45,7 @@ class UserAccountController extends Controller
      */
     public function showAccountDetails(Accounts $account,Request $request){
         //        get transaction
-        $trans=Transactions::Search($account->account_number)->with('TransactionType')->paginate();
+        $trans=Transactions::Search($account->account_number)->latest()->get();
         $json=json_encode($trans);
         return view('customer.forAuth.account.acc_detail',compact('account','trans','json'));
     }
@@ -54,60 +56,61 @@ class UserAccountController extends Controller
          $banks[]=SouthBank::INFO;
          $banks[]=Banks::orderBy('shortName','asc')->get();
         //        dd($banks);
-        return view('customer.forAuth.transfer.transfer_within_bank',compact('banks','acc'));
+        return view('customer.forAuth.transfer.transfers',compact('banks','acc'));
      }
 
     /**
      * @param Request $request
      * @method post
      * @function Handle User Transfer
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
      public function handleTransfer(Request $request){
          /**
           * @validate
           */
-         $request->validate([
-             "bank" => ["required","numeric"],
-              "account_number" =>["required",function ($attribute, $value, $fail) use ($request) {
-                  if ($value === $request->get('from_account')) {
-                      $fail('Cannot send to the same account');
-                  }
-              }],
-              "account_holder_name" => ["required","string"],
-              "from_account" => ["required","exists:accounts,account_number"],
-              "amount" => ["required","numeric","min:5000",new AvailableBalance(Accounts::Search($request->get('from_account'))->first()->id)],
-              "currency" =>  ["required"],
-              "description" => ["nullable" ,"string"],
-              "trans_password" => ["required","exists:user_trans_secret,trans_password"],
-         ],[
-             "from_account:exists"=>"Transfer account does not exist.",
-             "trans_password:exists"=>"invalid transfer password.",
-         ]);
+         try {
+             $request->validate([
+                 "bank" => ["required","numeric"],
+                  "account_number" =>["required",function ($attribute, $value, $fail) use ($request) {
+                      if ($value === $request->get('from_account')) {
+                          $fail('Cannot send to the same account');
+                      }
+                  }],
+                  "account_holder_name" => ["required","string"],
+                  "from_account" => ["required","exists:accounts,account_number"],
+                  "amount" => ["required","numeric","min:5000",new AvailableBalance(Accounts::Search($request->get('from_account'))->first()->id)],
+                  "description" => ["nullable" ,"string"],
+                  "trans_password" => ["required",new TransPassword()],
+             ],[
+                 "from_account:exists"=>"Transfer account does not exist.",
+             ]);
 
-        $from_id=Accounts::Search($request->get('from_account'))->first()->id;
-        $to_id=Accounts::Search($request->get('account_number'))->first()->id;
-        $amount=$request->get('amount');
+            $from_id=Accounts::Search($request->get('from_account'))->first()->id;
+            $to_id=Accounts::Search($request->get('account_number'))->first()->id;
+            $amount=$request->get('amount');
 
-        BalanceCardAccount::where('account_id',$to_id)->increment('balance',$amount);
-        BalanceCardAccount::where('account_id',$from_id)->decrement('balance',$amount);
+            BalanceCardAccount::where('account_id',$to_id)->increment('balance',$amount);
+            BalanceCardAccount::where('account_id',$from_id)->decrement('balance',$amount);
 
-        $bin=$request->get('bank');
+            $bin=$request->get('bank');
 
-        $trans_rc=Transactions::create([
-            'to_number'=>$request->get('account_number'),
-            'amount'=>$request->get('amount'),
-            'fees'=>0,
-            'status'=>1,
-            'description'=>$request->get('description'),
-            'transaction_type_id'=>1,
-            'from_number'=>$request->get('from_account'),
-            'bank_name'=>$bin==SouthBank::INFO['bin']?SouthBank::INFO['name']:Banks::where('bin','=',$bin)->first()->name,
-            'account_holder_name'=>$request->get('account_holder_name'),
-        ]);
-
-        return redirect()->route('user.transfer.end',['transId'=>$trans_rc->id]);
-
+            $trans_rc=Transactions::create([
+                'to_number'=>$request->get('account_number'),
+                'amount'=>$request->get('amount'),
+                'fees'=>0,
+                'status'=>1,
+                'description'=>$request->get('description'),
+                'transaction_type_id'=>1,
+                'from_number'=>$request->get('from_account'),
+                'bank_name'=>$bin==SouthBank::INFO['bin']?SouthBank::INFO['name']:Banks::where('bin','=',$bin)->first()->name,
+                'account_holder_name'=>$request->get('account_holder_name'),
+            ]);
+             return response()->json(['status'=> (bool)$trans_rc->id]);
+//            return redirect()->route('user.transfer.end',['transId'=>$trans_rc->id]);
+         }catch (Throwable $e){
+             return response()->json(['status'=>$e]);
+         }
      }
     /**
      * @param $transId
@@ -120,8 +123,8 @@ class UserAccountController extends Controller
 
     }
     public function SearchAccount(Request $request){
-        if($request->get('bin')!==SouthBank::INFO['bin']){
 
+        if($request->get('bin')===SouthBank::INFO['bin']){
             try{
                 $acc=Accounts::with('User')->Search($request->get('account_number'))->first();
                 if($acc!=[]){
@@ -176,15 +179,24 @@ class UserAccountController extends Controller
 
     /**
      * @param Request $request
-     * @return int
+     * @return \Illuminate\Http\JsonResponse
      * @function Check Transfer password
      */
     protected function CheckTransPW(Request $request){
         try {
-           $uTrans= UserTransSecret::where('trans_password','=',$request->get('transfer_pw'))->first();
-            return isset($uTrans->user_id) ? 0 : 1;
-        }catch (Throwable $e){report($e);}
-        return 1;
+            $ut_pw=UserTransSecret::where('user_id',auth()->user()->id)->first();
+            $appointmentTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ut_pw->expires);
+            $check=0;
+            if (intval($request->get('transfer_pw')) === $ut_pw->trans_password ) {
+                $check=1;
+                if( $appointmentTime->lt(Carbon::now())){
+                    $check=2;
+                }
+            }
+            return response()->json(['status'=>$check]);
+        }catch (Throwable $e){
+            return response()->json(['status'=>$e]);
+        }
     }
 
     public function CheckAmount_Transfer(Request $request){
@@ -194,15 +206,13 @@ class UserAccountController extends Controller
             $a=$bl->balance > $am;
             $b= $am >= 5000;
             if($a && $b){
-                return 1;
+                return response()->json(['status'=>1]);
             }else if($a && !$b){
-                return 2;
+                return response()->json(['status'=>2]);
             }else if(!$a && $b){
-                return 3;
-            }else {
-                return 0;
+                return response()->json(['status'=>3]);
             }
-
+            return response()->json(['status'=>0]);
         }catch (Throwable $e){ report($e);return($e);}
 
     }

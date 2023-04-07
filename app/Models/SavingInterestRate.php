@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SavingInterestRate extends Model
 {
+
+    const FIXED_INTERST_RATE=0.8;
+    const MONTHLY=1;
+    const OTHERS=[3,6,12];
+    const TERMS=[1,2,3,4,5,6,7,8,9,10,11,12,13,15,18,24,36];
     use HasFactory;
     protected $table='saving_interest_rate';
     protected $fillable=[

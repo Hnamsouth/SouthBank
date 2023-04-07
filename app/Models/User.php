@@ -23,7 +23,8 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'email',
         'password',
-        'status'
+        'status',
+        'api_token',
     ];
 
     /**
@@ -78,6 +79,16 @@ class User extends Authenticatable implements JWTSubject
         return $query;
     }
 
+    public function retrieveByToken($identifier, $token)
+    {
+        return $this->where('id', $identifier)
+            ->where('api_token', $token)
+            ->first();
+    }
+
+    public function DepositAccount(){
+        return $this->hasMany(DepositAccount::class);
+    }
 
     public function getJWTIdentifier()
     {

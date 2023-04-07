@@ -34,7 +34,7 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::USER_ACCOUNT0_LIST;
     protected $maxAttempts=3;
     protected $MESS_ERR_MAX_ATTEMPTS="Your account is locked.Please go to your email to unlock";
-    protected $MESS_ERR_ATTEMPTS="Your account will be locked if you login incorrectly more than 3 times";
+    protected $MESS_ERR_ATTEMPTS="Your account will be locked if you login incorrectly more than 3 times. Press 'Forgot your password' to reset your password";
 
     /**
      * Create a new controller instance.
