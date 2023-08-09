@@ -40,6 +40,7 @@ Route::post('acc-register',[RegisterController::class,'register']);
 
 Route::get('account-list',function(){$acc=\App\Models\AccountType::all();return view('customer.page.account_list',compact('acc'));})->name('account.list');
 Route::post('jwt-login',[JWTController::class ,'JWTlogin'])->name('jwt.login');
+
 Route::post('app-login',function(Request $request){
     $user=User::where('login_token',$request->get('login_token'))->first();
     \auth()->login($user);

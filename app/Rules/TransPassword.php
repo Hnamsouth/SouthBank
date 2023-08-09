@@ -31,7 +31,7 @@ class TransPassword implements Rule
     {
         $ut_pw=UserTransSecret::where('user_id',auth()->user()->id)->first();
         $appointmentTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $ut_pw->expires);
-        if ($value !=$ut_pw->trans_password ) {
+        if ($value != $ut_pw->trans_password ) {
            $this->check=true;
         }
         if( $appointmentTime->lt(Carbon::now())){
